@@ -25,4 +25,23 @@ router.route("/add").post((req,res) => {
     })
 })
 
+router.route("/").get(async (req,res) => {
+    payment.find().then((newPayment) => {
+        res.json(newPayment);
+    }).catch((err) => {
+        console.log(err);
+    })
+})
+
+router.route("/get/:id").get(async (req, res) => {
+    let paymentID = req.params.id;
+
+    await payment.findById(paymentID).then((payment) => {
+        res.json(payment);
+    }).catch((err) => {
+        console.log(err.message);
+        res.status(500).send({status: "error with fetched user", error: error.message});
+    })
+})
+
 module.exports = router;

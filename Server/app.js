@@ -20,6 +20,8 @@ const staffRouter1 = require("./routes/Employee_Management/Newstaff.js");
 const staffRouter2 = require("./routes/Employee_Management/AttendanceR.js");
 const orderRouter = require("./routes/Order_Management/Order.js");
 const paymentRouter = require("./routes/Order_Management/Payment.js");
+const driverRouter = require("./routes/Transport_management/Driver.js");
+const deliverRouter = require("./routes/Transport_management/Deliver.js");
 
 
 app.get("/", (req, res) => {
@@ -32,6 +34,8 @@ app.use("/newstaff", staffRouter1);
 app.use("/attendance1", staffRouter2);
 app.use("/order", orderRouter);
 app.use("/payment", paymentRouter);
+app.use("/driver", driverRouter);
+app.use("/deliver", deliverRouter);
 
 app.listen(PORT, () => {
     console.log(`Server is running on port number: ${PORT}`);

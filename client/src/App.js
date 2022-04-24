@@ -17,6 +17,11 @@ import ProductList from "./components/pages/ProductList";
 import UpdateProduct from "./components/update/UpdateProduct";
 import ProductCategory from "./components/pages/ProductCategory";
 import ProductSummary from "./components/pages/ProductSummary";
+import Driver from "./components/create/Driver";
+import OrderManagement from "./components/pages/OrderManagement";
+import Deliver from "./components/pages/Deliver";
+import UpdateDriver from "./components/update/UpdateDriver";
+import DriverList from "./components/pages/DriverList";
 // import AddProducts from "./core/AddProducts";
 
 function App() {
@@ -33,6 +38,12 @@ function App() {
           <Route path="/update-product/:id" exact component={UpdateProduct}/>
           <Route path="/attendance/:id" exact component={Attendance}></Route>
           <Route path="/product-summary" exact component={ProductSummary}></Route>
+
+          <Route path="/driver" exact component={Driver}></Route>
+          <Route path="/deliver/:id" exact component={Deliver}></Route>
+          <Route path="/update-driver/:id" exact component={UpdateDriver}></Route>
+          <Route path="/driverlist" exact component={DriverList}></Route>
+
           <Route path="/employeelist"  component={HomeTest}></Route>
           <Route path="/user-add" exact component={AddUser}></Route>
           <Route path="/test-edit/:id" exact component={EditUser}></Route>
@@ -41,6 +52,7 @@ function App() {
           <Route path="/editattds/:id" exact component={EditAttds}></Route>
           <Route path="/myorder" exact component={MyOrder}></Route>
           <Route path="/mycart" exact component={MyCart}></Route>
+          <Route path="/orderManagement" exact component={OrderManagement}></Route>
           <Route path="/updateorder/:id" exact component={UpdateOrder}></Route>
           <Route path="/payment/:id" exact component={Payment}></Route>
           <Route path="/summary/" exact component={Summary}></Route>
