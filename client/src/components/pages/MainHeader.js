@@ -28,11 +28,11 @@ import "../css/header.css";
                 <li><a href="/product">Product</a></li>
                 <li><a href="/productlist">Stock</a></li>
                 <li><a href="/myorder">Order</a></li>
-                <li><a href="/mycart">My Cart</a></li>
-                <li><a href="javascript:void(0)">Supplier</a></li>
+                <li><a href="/mycart">My Cart</a></li>                
                 <li><a href="javascript:void(0)">Outlet</a></li>
                 <li><a href="javascript:void(0)">Machine</a></li>
-                <li><a href="javascript:void(0)">Deliver</a></li>
+                <li><a href="/orderManagement">Order Manage</a></li>
+                <li><a href="/driverlist">Driver</a></li>
             </ul> <br></br><br></br>
         </div> 
     </>

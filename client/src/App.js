@@ -22,6 +22,7 @@ import OrderManagement from "./components/pages/OrderManagement";
 import Deliver from "./components/pages/Deliver";
 import UpdateDriver from "./components/update/UpdateDriver";
 import DriverList from "./components/pages/DriverList";
+import DriverProfile from "./components/pages/DriverProfile";
 // import AddProducts from "./core/AddProducts";
 
 function App() {
@@ -43,6 +44,7 @@ function App() {
           <Route path="/deliver/:id" exact component={Deliver}></Route>
           <Route path="/update-driver/:id" exact component={UpdateDriver}></Route>
           <Route path="/driverlist" exact component={DriverList}></Route>
+          <Route path="/driver-profile/:id" exact component={DriverProfile}></Route>
 
           <Route path="/employeelist"  component={HomeTest}></Route>
           <Route path="/user-add" exact component={AddUser}></Route>

@@ -78,7 +78,7 @@ export default function Deliver() {
         <div class="driver-include">
             <form onSubmit={e => onSubmit(e)}>
 
-                <br/><center><h3>Delivery Page</h3></center>
+                <br/><center><h3>Delivery Page</h3></center><br/>
 
                 <table class="driver-table">
                     <tr>
