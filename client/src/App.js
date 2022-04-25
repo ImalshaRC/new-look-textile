@@ -29,6 +29,7 @@ import UpdateOutlet from "./components/update/UpdateOutlet";
 import OutletOrder from "./components/pages/OutletOrder";
 import OutletOrderList from "./components/pages/OutletOrdersList";
 import DeliverList from "./components/pages/DeliverList";
+import OutletSummary from "./components/pages/OutletSummary";
 // import AddProducts from "./core/AddProducts";
 
 function App() {
@@ -58,6 +59,7 @@ function App() {
           <Route path="/update-outlet/:id" exact component={UpdateOutlet}></Route>
           <Route path="/outlet-order/:id" exact component={OutletOrder}></Route>
           <Route path="/outletorderlist" exact component={OutletOrderList}></Route>
+          <Route path="/outlet-summary" exact component={OutletSummary}></Route>
 
           <Route path="/employeelist"  component={HomeTest}></Route>
           <Route path="/user-add" exact component={AddUser}></Route>

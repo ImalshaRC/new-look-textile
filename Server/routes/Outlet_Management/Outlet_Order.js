@@ -11,10 +11,7 @@ router.route("/add/:ownerName/:ownerPhone/:outletID/:designCode/:productName/:Or
     const OrderDate = req.params.OrderDate;    
     const category= req.params.category;
     const size= req.params.size;
-    const quantity= req.params.quantity;
-
-    console.log(req.params.ownerName);
-    console.log(req.params);
+    const quantity= Number(req.params.quantity);
 
     const newOutletOrder = new OutletOrder({
         ownerName, ownerPhone, outletID, designCode, productName, OrderDate, category, size, quantity
@@ -47,6 +44,15 @@ router.route("/delete/:id").delete(async (req, res) => {
             console.log(err.message);
             res.status(500).send({ status: "Error with delete product", error: err.message });
         });
+});
+
+router.route("/find").get(async (req, res) => { 
+
+    await OutletOrder.aggregate([
+        {"$group" : { _id : {outletID: "$outletID", designCode: "$designCode"}, sum: {$sum: "$quantity"}}}
+    ]).then((data) => {
+        res.json(data);
+    })
 });
 
 module.exports = router;
