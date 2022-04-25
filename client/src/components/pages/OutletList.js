@@ -54,18 +54,25 @@ export default function OutletList() {
         history.push("/outletorderlist");
     }
 
+    const goToOutletSummary = () => {
+        history.push("/outletorderlist");
+    }
+
     return(
         <div>
 
 
             <div className="searchPanel">
                 <div className="searchPanel_addNew">
-                <div className="searchPanel_addNew d-flex">
-                <button className="newCustomer_btn" onClick={goToCategory}>
+                <div className="d-flex">
+                    <button className="newCustomer_btn" onClick={goToCategory}>
                         Add Outlet
                     </button>
                     <button onClick={goToOutletOrderList} className="newCustomer_btn mx-4">
                         Outlet Orders
+                    </button> 
+                    <button onClick={goToOutletSummary} className="newCustomer_btn mx-4">
+                        Outlet Summary
                     </button>                    
                 </div>
                 </div>

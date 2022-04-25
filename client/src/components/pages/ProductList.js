@@ -73,17 +73,24 @@ export default function ProductList() {
         history.push("/product");
     }
 
+    const goToProductSummary = () => {
+        history.push("/product-summary");
+    }
+
     return(
         <div>
 
             <div className="searchPanel">
                 <div className="searchPanel_addNew">
-                <div className="searchPanel_addNew d-flex">
+                <div className="d-flex">
                     <button className="newCustomer_btn" onClick={goToAddProduct}>
                         Add Product
                     </button>
                     <button onClick={goToCategory} className="newCustomer_btn mx-4">
                         Product Category
+                    </button> 
+                    <button onClick={goToProductSummary} className="newCustomer_btn mx-4">
+                        Product Summary
                     </button>                    
                 </div>
                 </div>
