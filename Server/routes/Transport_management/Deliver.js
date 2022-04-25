@@ -36,4 +36,16 @@ router.route("/").get(async (req,res) => {
     })
 })
 
+router.route("/delete/:id").delete(async (req, res) => {
+    let deliverID = req.params.id;
+
+    await deliver.findByIdAndDelete(deliverID).then(() => {
+            res.status(200).send({ status: "Deliver deleted" });
+        })
+        .catch((err) => {
+            console.log(err.message);
+            res.status(500).send({ status: "Error with delete Deliver", error: err.message });
+        });
+});
+
 module.exports = router;

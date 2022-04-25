@@ -23,6 +23,12 @@ import Deliver from "./components/pages/Deliver";
 import UpdateDriver from "./components/update/UpdateDriver";
 import DriverList from "./components/pages/DriverList";
 import DriverProfile from "./components/pages/DriverProfile";
+import AddOutlet from "./components/create/AddOutlet";
+import OutletList from "./components/pages/OutletList";
+import UpdateOutlet from "./components/update/UpdateOutlet";
+import OutletOrder from "./components/pages/OutletOrder";
+import OutletOrderList from "./components/pages/OutletOrdersList";
+import DeliverList from "./components/pages/DeliverList";
 // import AddProducts from "./core/AddProducts";
 
 function App() {
@@ -45,6 +51,13 @@ function App() {
           <Route path="/update-driver/:id" exact component={UpdateDriver}></Route>
           <Route path="/driverlist" exact component={DriverList}></Route>
           <Route path="/driver-profile/:id" exact component={DriverProfile}></Route>
+          <Route path="/deliverlist" exact component={DeliverList}></Route>
+
+          <Route path="/outlet" exact component={AddOutlet}></Route>
+          <Route path="/outletlist" exact component={OutletList}></Route>
+          <Route path="/update-outlet/:id" exact component={UpdateOutlet}></Route>
+          <Route path="/outlet-order/:id" exact component={OutletOrder}></Route>
+          <Route path="/outletorderlist" exact component={OutletOrderList}></Route>
 
           <Route path="/employeelist"  component={HomeTest}></Route>
           <Route path="/user-add" exact component={AddUser}></Route>

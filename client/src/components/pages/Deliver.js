@@ -64,11 +64,12 @@ export default function Deliver() {
     const onSubmit = async e => {
         updateDeliver();
         e.preventDefault();      
-        await axios.post('http://localhost:5000/deliver/add/', deliver).then(() => {
-            alert("driver added successfully");
-        }).catch((err) => {
-            alert(err);
-        })
+        // await axios.post('http://localhost:5000/deliver/add/', deliver).then(() => {
+        //     alert("driver added successfully");
+        // }).catch((err) => {
+        //     alert(err);
+        // })
+        console.log(deliver);
         history.push("/");          
     }
 

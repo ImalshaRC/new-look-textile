@@ -1,6 +1,5 @@
 const router = require("express").Router();
 const Category = require("../../models/Stock_and_Product_Management/category");
-//let Category = require("../../models/Stock_and_Product_Management/category")
 
 router.route("/add").post((req, res) => {
     console.log(req.body);

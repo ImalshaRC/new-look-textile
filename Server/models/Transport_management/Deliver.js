@@ -3,27 +3,33 @@ const Schema = mongoose.Schema;
 const DeliverSchema = new Schema({
 
     cusName: {
-        type: String
+        type: String,
+        required: true
     },
 
     cusCountry: {
-        type: String
+        type: String,
+        required: true
     },
 
     cusCity: {
-        type: String
+        type: String,
+        required: true
     },
 
     cusEmail: {
-        type: String
+        type: String,
+        required: true
     },
 
     cusPhone: {
-        type: String
+        type: String,
+        required: true
     },
 
     cusPCode: {
-        type: String
+        type: String,
+        required: true
     },
 
     driverName: {
