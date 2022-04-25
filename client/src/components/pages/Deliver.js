@@ -47,12 +47,6 @@ export default function Deliver() {
         driverPhone: ""
     });
 
-    const updateDeliver = () => {
-        setDeliver(previousState => {
-          return { ...previousState, cusName: fullName, cusCountry: country, cusCity: city, cusEmail: email, cusPhone: phone, cusPCode: pCode }
-        });
-      }
-
     const { cusName, cusCountry, cusCity, cusEmail, cusPhone, cusPCode, driverName, vehicleNo, driverID, deliveryTime, driverPhone } = deliver;
 
     const onInputChange = e => {
@@ -62,13 +56,24 @@ export default function Deliver() {
     
 
     const onSubmit = async e => {
-        updateDeliver();
         e.preventDefault();      
-        // await axios.post('http://localhost:5000/deliver/add/', deliver).then(() => {
-        //     alert("driver added successfully");
-        // }).catch((err) => {
-        //     alert(err);
-        // })
+        await axios.post('http://localhost:5000/deliver/add/' 
+            + fullName + '/' 
+            + country + '/' 
+            + city + '/' 
+            + email + '/' 
+            + phone + '/' 
+            + pCode + '/' 
+            + driverName + '/' 
+            + vehicleNo + '/' 
+            + driverID + '/'  
+            + deliveryTime + '/'  
+            + driverPhone     
+        ).then(() => {
+            alert("Deliver added successfully");
+        }).catch((err) => {
+            alert(err);
+        })
         console.log(deliver);
         history.push("/");          
     }

@@ -43,14 +43,6 @@ export default function OutletOrder() {
         quantity: ""
     });    
 
-    
-
-    // const updateOutletOrder = () => {
-    //     setOutletOrder(previousState => {
-    //       return { ...previousState, ownerNameOrder: ownerName, ownerPhoneOrder: ownerPhone, outletIDOrder: outletID }
-    //     });
-    //   }
-
     const { ownerNameOrder, ownerPhoneOrder, outletIDOrder, designCode, productName, OrderDate, category, size, quantity } = outletOrder;
 
     const onInputChange = e => {

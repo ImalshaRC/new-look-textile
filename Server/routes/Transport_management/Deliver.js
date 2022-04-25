@@ -1,19 +1,19 @@
 const router = require("express").Router();
 let deliver = require("../../models/Transport_management/Deliver.js");
 
-router.route("/add").post((req,res) => {
+router.route("/add/:fullName/:country/:city/:email/:phone/:pCode/:driverName/:vehicleNo/:driverID/:deliveryTime/:driverPhone").post((req,res) => {
 
-    const cusName = req.body.cusName;
-    const cusCountry = req.body.cusCountry;
-    const cusCity = req.body.cusCity;
-    const cusEmail = req.body.cusEmail;
-    const cusPhone = req.body.cusPhone;
-    const cusPCode = req.body.cusPCode;
-    const driverName = req.body.driverName;
-    const vehicleNo = req.body.vehicleNo;
-    const driverID = req.body.driverID;
-    const deliveryTime = req.body.deliveryTime;
-    const driverPhone = req.body.driverPhone;
+    const cusName = req.params.fullName;
+    const cusCountry = req.params.country;
+    const cusCity = req.params.city;
+    const cusEmail = req.params.email;
+    const cusPhone = req.params.phone;
+    const cusPCode = req.params.pCode;
+    const driverName = req.params.driverName;
+    const vehicleNo = req.params.vehicleNo;
+    const driverID = req.params.driverID;
+    const deliveryTime = req.params.deliveryTime;
+    const driverPhone = req.params.driverPhone;
 
     const newDeliver = new deliver({
 
