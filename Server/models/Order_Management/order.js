@@ -3,19 +3,24 @@ const Schema = mongoose.Schema;
 
 const OrderSchema = new Schema({  
 
-    color:{
+    pdName: {
+        type: String,
+        required: true,
+    },
+
+    oColor:{
         type: String,     
         required: true
     },
 
-    quantity:{
-        type: String,
-        required: true        
-    },
-
-    size:{
+    oSize:{
         type: String,
         required: true
+    },
+
+    oQuantity:{
+        type: String,
+        required: true        
     },
 
     total:{

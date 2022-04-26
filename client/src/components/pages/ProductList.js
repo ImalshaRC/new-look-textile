@@ -86,9 +86,9 @@ export default function ProductList() {
                     <button className="newCustomer_btn" onClick={goToAddProduct}>
                         Add Product
                     </button>
-                    <button onClick={goToCategory} className="newCustomer_btn mx-4">
+                    {/* <button onClick={goToCategory} className="newCustomer_btn mx-4">
                         Product Category
-                    </button> 
+                    </button>  */}
                     <button onClick={goToProductSummary} className="newCustomer_btn mx-4">
                         Product Summary
                     </button>                    

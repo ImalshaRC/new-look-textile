@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import axios from 'axios';
 import { useHistory, useParams } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function AddOutlet() {
 
@@ -28,18 +30,89 @@ export default function AddOutlet() {
 
     const onSubmit = async e => {
         e.preventDefault();
-        await axios.post('http://localhost:5000/outlet/add/', outlet).then(() => {
-            alert("Outlet Added Successfully");
-        }).catch((err) => {
-            alert(err);
-        })
-    
-        history.push("/");          
+        const valid = formValidation();
+        if(valid){
+            await axios.post('http://localhost:5000/outlet/add/', outlet).then(() => {
+                alert("Outlet Added Successfully");
+            }).catch((err) => {
+                alert(err);
+            })
+            history.push("/");
+        }                      
     }
+
+    const formValidation = () =>{
+  
+        let isValid = true;
+
+        if(ownerName.trim().length === 0){
+            toast.error("Please insert color");
+            isValid = false;
+        }
+        else if(NIC.trim().length === 0){
+            toast.error("Please insert size");
+            isValid = false;
+        }
+    
+        else if(outletName.trim().length === 0){
+            toast.error("Please insert quantity");
+            isValid = false;
+        }
+
+        else if(ownerAddress.trim().length === 0){
+            toast.error("Please insert quantity");
+            isValid = false;
+        }
+
+        else if(ownerPhone.trim().length === 0){
+            toast.error("Please insert quantity");
+            isValid = false;
+        }
+
+        else if(date.trim().length === 0){
+            toast.error("Please insert quantity");
+            isValid = false;
+        }
+
+        else if(!email.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i)){
+            toast.error("Please insert quantity");
+            isValid = false;
+        }
+
+        else if(!password.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/)){
+            toast.error("Please insert quantity");
+            isValid = false;
+        }
+
+        else if(outletID.trim().length === 0){
+            toast.error("Please insert quantity");
+            isValid = false;
+        } 
+        else if(outletPhone.trim().length === 0){
+            toast.error("Please insert quantity");
+            isValid = false;
+        }
+  
+        return isValid;
+      }
 
     return(
         <div class="outlet-include">
             <form onSubmit={e => onSubmit(e)}>
+
+                <ToastContainer style={{ width: "450px", textAlign: 'center', fontSize: '17px', fontFamily: 'fantasy' }}
+                    position="top-center"
+                    theme='light'
+                    autoClose={5000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                    limit={1}
+                />
 
                 <br/><center><h3>Add Outlet</h3></center><br/>
 

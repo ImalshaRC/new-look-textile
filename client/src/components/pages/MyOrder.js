@@ -1,78 +1,100 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import axios from 'axios';
-import { useHistory } from 'react-router';
+import { useHistory, useParams } from 'react-router';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function MyOrder() {
 
     let history = useHistory();
+    const { id } = useParams();
 
-    const price = 2000;
+    const [product, setProduct] = useState({
+        pID: "",
+        pName: "",
+        category: "",
+        price: "",
+        size: "",
+        status: "",
+        quantity: "",
+        color: "",
+        date: ""
+    });
+
+    const { pID, pName, category, price, size, status, quantity, color, date } = product;
+    
+    
+    useEffect(() => {
+        loadProduct();
+      }, []);
+  
+      const loadProduct = async () => {
+          const result = await axios.get("http://localhost:5000/product/get/" + id);
+          setProduct(result.data);
+      }
 
     const [order, setOrder] = useState({
-        color: "",
-        size: "",
-        quantity: "",
+        pdName: "",
+        oColor: "",
+        oSize: "",
+        oQuantity: "",
         total: ""
     });
 
-    const { color, size, quantity, total } = order;
+    const { pdName, oColor, oSize, oQuantity, total } = order;
 
     const onInputChange = e => {
         setOrder({...order, [e.target.name]: e.target.value});
     }
 
+    var sum = 0;
+    var pPrice = parseFloat(price) * oQuantity;
+
     const onSubmit = async e => {
         e.preventDefault();
         const isValid = formValidation();
         if(isValid){
-            await axios.post('http://localhost:5000/order/add/', order).then(() => {
-            alert("order added successfully");
+            await axios.post('http://localhost:5000/order/add/?pdName='+pName+'&oColor='+oColor+'&oSize='+oSize+'&oQuantity='+oQuantity+'&total='+pPrice).then(() => {
+                alert("order added successfully");
             }).catch((err) => {
                 alert(err);
-            })
-        
-            history.push("/");     
+            })        
+            history.push("/mycart");     
         }     
     }
 
-    console.log(price * quantity);
-
+    const [productErr, setProducrErr] = useState({});
     const [colorErr, setColorErr] = useState({});
     const [sizeErr, setSizeErr] = useState({});
     const [quantityErr, setQuantityErr] = useState({});
-    const [totalErr, setTotalErr] = useState({});
 
     const formValidation = () =>{
 
+        const productErr = {};
         const colorErr = {};
         const sizeErr = {};
         const quantityErr = {};
   
         let isValid = true;
 
-        if(color.trim().length === 0){
-            colorErr.colorNull = "Please insert color";
+        if(oColor.trim().length === 0){
+            toast.error("Please insert color");
             isValid = false;
         }
-        else if(size.trim().length === 0){
-            sizeErr.sizeNull = "Please insert size";
+        else if(oSize.trim().length === 0){
+            toast.error("Please insert size");
             isValid = false;
         }
     
-        else if(quantity.trim().length === 0){
-            quantityErr.quantityNull = "Please insert quantity";
-            isValid = false;
-        }
-
-        else if(total.trim().length === 0){
-            totalErr.totalNull = "Please insert total";
+        else if(oQuantity.trim().length === 0){
+            toast.error("Please insert quantity");
             isValid = false;
         }
   
+        setProducrErr(productErr);
         setColorErr(colorErr);
         setSizeErr(sizeErr);
         setQuantityErr(quantityErr); 
-        setTotalErr(totalErr); 
   
         return isValid;
       }
@@ -81,13 +103,37 @@ export default function MyOrder() {
         <div class="myOrder">
             <form onSubmit={e => onSubmit(e)}>
 
-                <br/><center><h3>My Order Page</h3></center>
+                <ToastContainer style={{ width: "450px", textAlign: 'center', fontSize: '17px', fontFamily: 'fantasy' }}
+                    position="top-center"
+                    theme='light'
+                    autoClose={5000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                    limit={1}
+                />
+
+                <br/><center><h3>My Order Page</h3></center><br/>
 
                 <table class="payment-table">
+                    
+                    <tr>
+                        <td>
+                            Product Name
+                            <input type="text" name="pName" value={pName} placeholder="Enter Product Name"  onChange={ e => onInputChange(e)}/>
+                            {Object.keys(productErr).map((key)=>{
+                                return <div style={{color: "#ff2b2b"}}>{productErr[key]}</div>
+                                })}
+                        </td>
+                    </tr>
                     <tr>
                         <td>
                             Color
-                            <select name="color" value={color} onChange={ e => onInputChange(e)} required>
+                            <select name="oColor" value={oColor} onChange={ e => onInputChange(e)} required>
                                 <option>Select Color</option>
                                 <option value="White">White</option>
                                 <option value="Black">Black</option>
@@ -100,7 +146,7 @@ export default function MyOrder() {
                     <tr>
                         <td>
                             Size
-                            <select name="size" value={size} onChange={ e => onInputChange(e)} >
+                            <select name="oSize" value={oSize} onChange={ e => onInputChange(e)} >
                                 <option>Select Size</option>
                                 <option value="M">M</option>
                                 <option value="L">L</option>
@@ -113,8 +159,8 @@ export default function MyOrder() {
                     <tr>
                         <td>
                             Quantity
-                            <select name="quantity" value={quantity} onChange={ e => onInputChange(e)} >
-                                <option>Select Quantity</option>
+                            <select name="oQuantity" value={oQuantity} onChange={ e => onInputChange(e)} >
+                                <option value="1">Select Quantity</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
@@ -129,10 +175,7 @@ export default function MyOrder() {
                     <tr>
                         <td>
                             Total
-                            <input type="text" name="total" placeholder="Enter Total" value={total} onChange={ e => onInputChange(e)}/>
-                            {Object.keys(totalErr).map((key)=>{
-                                return <div style={{color: "#ff2b2b"}}>{totalErr[key]}</div>
-                                })}
+                            <input type="text" name="total" value={parseFloat(price) * oQuantity} placeholder="Enter Total" onChange={ e => onInputChange(e)}/>
                         </td>
                     </tr>
                     <tr>

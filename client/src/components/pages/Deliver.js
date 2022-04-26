@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from 'axios';
 import { useHistory, useParams } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Deliver() {
 
@@ -56,33 +58,78 @@ export default function Deliver() {
     
 
     const onSubmit = async e => {
-        e.preventDefault();      
-        await axios.post('http://localhost:5000/deliver/add/' 
-            + fullName + '/' 
-            + country + '/' 
-            + city + '/' 
-            + email + '/' 
-            + phone + '/' 
-            + pCode + '/' 
-            + driverName + '/' 
-            + vehicleNo + '/' 
-            + driverID + '/'  
-            + deliveryTime + '/'  
-            + driverPhone     
-        ).then(() => {
-            alert("Deliver added successfully");
-        }).catch((err) => {
-            alert(err);
-        })
-        console.log(deliver);
-        history.push("/");          
+        e.preventDefault();  
+        const valid = formValidation();
+        if(valid){    
+                await axios.post('http://localhost:5000/deliver/add/' 
+                + fullName + '/' 
+                + country + '/' 
+                + city + '/' 
+                + email + '/' 
+                + phone + '/' 
+                + pCode + '/' 
+                + driverName + '/' 
+                + vehicleNo + '/' 
+                + driverID + '/'  
+                + deliveryTime + '/'  
+                + driverPhone     
+            ).then(() => {
+                alert("Deliver added successfully");
+            }).catch((err) => {
+                alert(err);
+            })
+            history.push("/");
+        }          
     }
 
-    // console.log(deliver);
+    const formValidation = () =>{
+  
+        let isValid = true;
+
+        if(driverName.trim().length === 0){
+            toast.error("Please insert color");
+            isValid = false;
+        }
+        else if(vehicleNo.trim().length === 0){
+            toast.error("Please insert size");
+            isValid = false;
+        }
+    
+        else if(driverID.trim().length === 0){
+            toast.error("Please insert quantity");
+            isValid = false;
+        }
+
+        else if(deliveryTime.trim().length === 0){
+            toast.error("Please insert quantity");
+            isValid = false;
+        }
+
+        else if(driverPhone.trim().length === 0){
+            toast.error("Please insert quantity");
+            isValid = false;
+        }     
+  
+        return isValid;
+      }
 
     return(
         <div class="driver-include">
             <form onSubmit={e => onSubmit(e)}>
+
+                <ToastContainer style={{ width: "450px", textAlign: 'center', fontSize: '17px', fontFamily: 'fantasy' }}
+                    position="top-center"
+                    theme='light'
+                    autoClose={5000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                    limit={1}
+                />
 
                 <br/><center><h3>Delivery Page</h3></center><br/>
 

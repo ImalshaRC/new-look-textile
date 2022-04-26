@@ -5,9 +5,9 @@ import '../css/styles.css';
 import '../css/css1.css';
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
-import img1 from '../../imges/img1.jpg';
+import img2 from '../../imges/img2.jpg';
 
-export default function ProductCategory() {
+export default function MachineCategory() {
 
     let docToPrint = React.createRef();
 
@@ -26,22 +26,23 @@ export default function ProductCategory() {
         });
     };
 
-    const [products, setProducts] = useState([]);
+    const [machines, setMachine] = useState([]);
+    
     useEffect(() => {
-        loadProducts();
+        loadMachine();
     }, []);
 
-    const loadProducts = async() => {
-        const result = await axios.get('http://localhost:5000/product/');
-        setProducts(result.data.reverse());
-    }
-
-    const deleteProduct = async id => {
-        await axios.delete("http://localhost:5000/product/delete/" + id);
-        loadProducts();
+    const loadMachine = async() => {
+        const result = await axios.get('http://localhost:5000/machine/');
+            setMachine(result.data.reverse());
     }
 
     const [searchText, setSearchText] = useState('');
+
+    const deleteMachine = async id => {
+        await axios.delete("http://localhost:5000/machine/delete/" + id);
+        loadMachine();
+    }
 
 
     const handlesearchArea = value => {
@@ -52,15 +53,15 @@ export default function ProductCategory() {
     const filterData = value => {
         const lowerCaseValue = value.toLowerCase().trim();
         if(!lowerCaseValue){
-            loadProducts();
+            loadMachine();
         }
         else{      
-            const filteredData = products.filter(item => {
+            const filteredData = machines.filter(item => {
                 return Object.keys(item).some(key => {
                     return item[key].toString().toLowerCase().includes(lowerCaseValue);
                 })
             });
-            setProducts(filteredData);
+            setMachine(filteredData);
         }
     }
 
@@ -76,27 +77,23 @@ export default function ProductCategory() {
 
     const onSubmit = async e => {
         e.preventDefault(); 
-        await axios.get('http://localhost:5000/product/find/?category=' + category).then((results) => {
-        // alert("order added successfully");
-            setProducts(results.data.reverse());
+        await axios.get('http://localhost:5000/machine/find/?category=' + category).then((results) => {
+            setMachine(results.data.reverse());
         }).catch((err) => {
             alert(err);
         })
     }
 
-    console.log(products);
-
     return(
         <div>
-
             <div className="searchPanel">
                 <div className="searchPanel_addNew">
                     <form className="row" onSubmit={e => onSubmit(e)}>
                         <div className="searchPanel_addNew">
                             <select className="newCustomer_btn" name="category" onChange={ e => onInputChange(e)}>
                                 <option value="All">All</option>
-                                <option value="Men">Men</option>
-                                <option value="Women">Women</option>
+                                <option value="category1">Category 1</option>
+                                <option value="category2">Category 2</option>
                             </select>
                         </div>
                         <div className="searchPanel_addNew">
@@ -120,18 +117,43 @@ export default function ProductCategory() {
                 <div className="d-flex justify-content-center">
                     <div className="col-lg-6">
                         <div className="row">                    
-                            {products.map((product, i)=>(
+                            {machines.map((machine, i)=>(
                                 <div key={i} className="col-lg-6 col-sm-6">
                                     <div class="px-4 py-2">
                                         <div className="border border-primary bg-gradient">
                                             <div className="">                                    
-                                                <Link to={`/myorder/${product._id}`}><img className="img-thumbnail" src={img1}/></Link>
-                                                <div className="d-flex justify-content-center">
-                                                    <div className="col-3">
-                                                        <h6>{product.pName}</h6>
-                                                        <h6>{product.price}</h6>
+                                                <img className="img-thumbnail" src={img2}/>
+
+                                                <div className=" justify-content-center">
+                                                    <div className="row"> 
+                                                        <center>
+                                                            <div className="col-3">
+                                                                <h6>{machine.machineName}</h6>
+                                                            </div>
+                                                        </center>
+                                                    </div>
+                                                    <div className="row">
+                                                        <center>
+                                                            <div className="col-8">
+                                                                <h6>{machine.description}</h6>
+                                                            </div>
+                                                        </center>
+                                                    </div>
+                                                    <div className="row mb-3 d-flex justify-content-center">
+                                                        
+                                                        <div className="col-3">
+                                                            <Link to={`/machine-profile/${machine._id}`}><button type="button" class="btn btn-outline-primary btn-sm" >Details</button></Link>
+                                                        </div>
+                                                        <div className="col-3">
+                                                            <Link to={`/update-machine/${machine._id}`}><button type="button" class="btn btn-outline-primary btn-sm" >Update</button></Link>
+                                                        </div>
+                                                        <div className="col-3">
+                                                            <button type="button" class="btn btn-outline-primary btn-sm" onClick={() => {deleteMachine(machine._id)}}>Delete</button>
+                                                        </div>
+                                                        
                                                     </div>
                                                 </div>
+                                                
                                             </div>
                                         </div>
                                     </div>
@@ -144,9 +166,7 @@ export default function ProductCategory() {
                 </div>
             </div>
 
-
-
-            {products.length === 0 && <span>no records found to display</span>}
+            {machines.length === 0 && <span>no records found to display</span>}
         </div>
     )
 }

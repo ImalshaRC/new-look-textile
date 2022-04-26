@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import axios from 'axios';
 import { useHistory, useParams } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Payment() {
 
@@ -26,18 +28,80 @@ export default function Payment() {
 
     const onSubmit = async e => {
         e.preventDefault();
-        await axios.post('http://localhost:5000/payment/add/', payment).then(() => {
-        alert("paymnet added successfully");
-        }).catch((err) => {
-            alert(err);
-        })
-    
-        history.push(`/summary?fullName=`+fullName+`&phone=`+phone+`&email=`+email+`&country=`+country+`&city=`+city+`&sAddress=`+sAddress+`&pCode=`+pCode+`&method=`+method+`&orderID=`+id);          
+        const valid = formValidation();
+        if(valid){
+            await axios.post('http://localhost:5000/payment/add/', payment).then(() => {
+                alert("paymnet added successfully");
+            }).catch((err) => {
+                alert(err);
+            })   
+            history.push(`/summary?fullName=`+fullName+`&phone=`+phone+`&email=`+email+`&country=`+country+`&city=`+city+`&sAddress=`+sAddress+`&pCode=`+pCode+`&method=`+method+`&orderID=`+id);
+        }               
     }
+
+    const formValidation = () =>{
+  
+        let isValid = true;
+
+        if(fullName.trim().length === 0){
+            toast.error("Please insert color");
+            isValid = false;
+        }
+        else if(phone.trim().length === 0){
+            toast.error("Please insert size");
+            isValid = false;
+        }
+    
+        else if(!email.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i)){
+            toast.error("Please insert quantity");
+            isValid = false;
+        }
+
+        else if(country.trim().length === 0){
+            toast.error("Please insert quantity");
+            isValid = false;
+        }
+
+        else if(city.trim().length === 0){
+            toast.error("Please insert quantity");
+            isValid = false;
+        }
+
+        else if(sAddress.trim().length === 0){
+            toast.error("Please insert quantity");
+            isValid = false;
+        }
+
+        else if(pCode.trim().length === 0){
+            toast.error("Please insert quantity");
+            isValid = false;
+        }
+
+        else if(method.trim().length === 0){
+            toast.error("Please insert quantity");
+            isValid = false;
+        } 
+  
+        return isValid;
+      }
 
     return(
         <div class="include">
             <form onSubmit={e => onSubmit(e)}>
+
+                <ToastContainer style={{ width: "450px", textAlign: 'center', fontSize: '17px', fontFamily: 'fantasy' }}
+                    position="top-center"
+                    theme='light'
+                    autoClose={5000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                    limit={1}
+                />
 
                 <br/><center><h3>Payment Page</h3></center>
 

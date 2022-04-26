@@ -11,10 +11,6 @@ import '../css/styles.css';
 
 function Attendance(){
 
-    
-
-
-
     let history = useHistory();
     const { id } = useParams();
     

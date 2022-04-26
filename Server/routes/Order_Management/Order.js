@@ -3,15 +3,14 @@ let order = require("../../models/Order_Management/order.js");
 
 router.route("/add").post((req,res) => {
 
-    const color = req.body.color;
-    const quantity = req.body.quantity;
-    const size = req.body.size;
-    const total = req.body.total;
+    const pdName = req.query.pdName;
+    const oColor = req.query.oColor;
+    const oQuantity = req.query.oQuantity;
+    const oSize = req.query.oSize;
+    const total = req.query.total;
 
     const newOrder = new order({
-
-        color, quantity, size, total
-
+        pdName, oColor, oQuantity, oSize, total
     })
 
     newOrder.save().then(() => {
@@ -31,10 +30,10 @@ router.route("/").get(async (req,res) => {
 
 router.route("/update/:id").put(async (req, res) => {
     let userID = req.params.id;
-    const {color, quantity, size, total} = req.body;
+    const {pdName, oColor, oQuantity, oSize, total} = req.body;
 
     const updateOrder = {
-        color, quantity, size, total
+        pdName, oColor, oQuantity, oSize, total
     }
 
     const update = await order.findByIdAndUpdate(userID, updateOrder).then(() => {

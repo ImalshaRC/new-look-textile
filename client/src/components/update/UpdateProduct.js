@@ -41,8 +41,12 @@ export default function UpdateProduct() {
       }, []);
   
       const loadProducts = async () => {
-          const result = await axios.get("http://localhost:5000/product/get/" + id);
-          setProduct(result.data);
+          try{
+            const result = await axios.get("http://localhost:5000/product/get/" + id);
+            setProduct(result.data);
+          }catch(err){
+            console.log(err);
+          }
       }
 
     return(

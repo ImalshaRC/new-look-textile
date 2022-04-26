@@ -57,9 +57,9 @@ export default function MyCart() {
             <div className="searchPanel">
                 <div className="searchPanel_addNew">
                 <div className="searchPanel_addNew d-flex">
-                    <button className="newCustomer_btn" onClick={goToAddOrder}>
+                    {/* <button className="newCustomer_btn" onClick={goToAddOrder}>
                         Add Order
-                    </button>
+                    </button> */}
                     {/* <button onClick={goToOutletOrderList} className="newCustomer_btn mx-4">
                         All Outlet Orders
                     </button>                     */}
@@ -85,6 +85,7 @@ export default function MyCart() {
         <thead>
             <tr>
                 <th scope="col">Order ID</th>
+                <th scope="col">Product Name</th>
                 <th scope="col">Color</th>
                 <th scope="col">Size</th>
                 <th scope="col">Quantity</th>
@@ -97,10 +98,11 @@ export default function MyCart() {
         orders.map((order, index) => (
             <tr>
                 <center><td >{index + 1}</td></center>
-                <td><center>{order.total}</center></td>   
-                <td><center>{order.color}</center></td>
-                <td><center>{order.size}</center></td>
-                <td><center>{order.quantity}</center></td>          
+                <td><center>{order.pdName}</center></td>  
+                <td><center>{order.oColor}</center></td> 
+                <td><center>{order.oSize}</center></td>
+                <td><center>{order.oQuantity}</center></td>
+                <td><center>{order.total}</center></td>          
                 <td scope="col"><center>
                     <Link to={`/updateorder/${order._id}`}><button class="table_btns">Update</button></Link>&nbsp;
                     <Link to={`/payment/${order._id}`}><button class="table_btns">Payment</button></Link>&nbsp;

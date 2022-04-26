@@ -55,7 +55,7 @@ export default function OutletList() {
     }
 
     const goToOutletSummary = () => {
-        history.push("/outletorderlist");
+        history.push("/outlet-summary");
     }
 
     return(

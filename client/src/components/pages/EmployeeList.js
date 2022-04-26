@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import '../css/styles.css';
 import '../css/css1.css';
 import html2canvas from "html2canvas";
@@ -66,6 +66,12 @@ function EmployeeList(){
         loadUser();
     }
 
+    let history = useHistory();
+
+    const goToAddEmployee = () => {
+        history.push("/user-add");
+    }
+
     return(
         <div>
             <div className="searchPanel">
@@ -76,7 +82,9 @@ function EmployeeList(){
                             <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/>
                         </svg>
                         
-                        <Link to={`/user-add`}><span>New Employee</span></Link>
+                        <span onClick={goToAddEmployee}>
+                            New Employee
+                        </span>
                     </button>
                 </div>&nbsp;&nbsp;
 
@@ -122,7 +130,6 @@ function EmployeeList(){
                 <th scope="col">tp</th>
                 <th scope="col">email</th>
                 <th scope="col">salary</th>
-                <th scope="col">psw</th>
                 <th scope="col">action</th>
             </tr>
         </thead>
@@ -143,10 +150,9 @@ function EmployeeList(){
                 <td>{user.tp}</td>
                 <td>{user.email}</td>
                 <td>{user.salary}</td>
-                <td>**********</td>
                 <td>
                     <Link to={`/User/${user._id}`}><button class="table_btns">View</button></Link>&nbsp;
-                    <Link to={`/test-edit/${user._id}`}><button class="table_btns">Edit</button></Link>&nbsp;
+                    <Link to={`/test-edit/${user._id}`}><button class="table_btns">Update</button></Link>&nbsp;
                     <Link to={`/attendance/${user.userID}`}><button class="table_btns">Attds</button></Link>&nbsp;
                     <button class="table_btns" onClick={() => {deleteUser(user._id)}}>Delete</button>
                 </td>

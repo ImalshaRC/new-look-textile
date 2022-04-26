@@ -1,4 +1,4 @@
-//import React from 'react';
+import React from 'react';
 import "../css/header.css";
 
  function MainHeader(){
@@ -26,9 +26,10 @@ import "../css/header.css";
                 <li><a href="/employeelist">Employee</a></li>
                 <li><a href="/attendance">Attendance</a></li>
                 <li><a href="/productlist">Product</a></li>
+                <li><a href="/productcategory">Category</a></li>
                 <li><a href="/mycart">My Cart</a></li>                
                 <li><a href="/outletlist">Outlet</a></li>
-                <li><a href="javascript:void(0)">Machine</a></li>
+                <li><a href="/machinelist">Machine</a></li>
                 <li><a href="/orderManagement">Order Manage</a></li>
                 <li><a href="/driverlist">Driver</a></li>
                 <li><a href="/deliverlist">Deliver</a></li>

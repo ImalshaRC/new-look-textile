@@ -30,6 +30,11 @@ import OutletOrder from "./components/pages/OutletOrder";
 import OutletOrderList from "./components/pages/OutletOrdersList";
 import DeliverList from "./components/pages/DeliverList";
 import OutletSummary from "./components/pages/OutletSummary";
+import AddMachine from "./components/create/Machine";
+import MachineList from "./components/pages/MachineList";
+import UpdateMachine from "./components/update/UpdateMachine";
+import MachineCategory from "./components/pages/MachineCategory";
+import MachineProfile from "./components/pages/MachineProfile";
 // import AddProducts from "./core/AddProducts";
 
 function App() {
@@ -61,13 +66,19 @@ function App() {
           <Route path="/outletorderlist" exact component={OutletOrderList}></Route>
           <Route path="/outlet-summary" exact component={OutletSummary}></Route>
 
+          <Route path="/machine" exact component={AddMachine}></Route>
+          <Route path="/machinelist" exact component={MachineList}></Route>
+          <Route path="/update-machine/:id" exact component={UpdateMachine}></Route>
+          <Route path="/machineCategory" exact component={MachineCategory}></Route>
+          <Route path="/machine-profile/:id" exact component={MachineProfile}></Route>
+
           <Route path="/employeelist"  component={HomeTest}></Route>
           <Route path="/user-add" exact component={AddUser}></Route>
           <Route path="/test-edit/:id" exact component={EditUser}></Route>
           <Route path="/User/:id" exact component={User}></Route>
           <Route path="/attendance" exact component={TodayAttds}></Route>
           <Route path="/editattds/:id" exact component={EditAttds}></Route>
-          <Route path="/myorder" exact component={MyOrder}></Route>
+          <Route path="/myorder/:id" exact component={MyOrder}></Route>
           <Route path="/mycart" exact component={MyCart}></Route>
           <Route path="/orderManagement" exact component={OrderManagement}></Route>
           <Route path="/updateorder/:id" exact component={UpdateOrder}></Route>

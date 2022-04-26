@@ -168,7 +168,7 @@ const AddUser = () => {
       }
 
       //email
-      else if(email.trim().length < 5 ){
+      else if(!email.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i)){
         emailErr.emailerr = "Please insert correct email";
         isValid = false;
       }
@@ -180,7 +180,7 @@ const AddUser = () => {
       }
 
       //password
-      else if(psw.trim().length < 8 ){
+      else if(!psw.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/)){
         pswErr.pswerr = "Please insert strong Password";
         isValid = false;
       }
@@ -266,11 +266,11 @@ const AddUser = () => {
         <tr>
           <td>
             Choose designation<br></br>
-            <select name="desig" value={desig} onChange={ e => onInputChange(e)} >
-            <option value="Manager">Manager</option>
-            <option value="Admin">Admin</option>
-            <option value="Supervisor">Supervisor</option>
-            <option value="Staff">Staff</option>
+            <select name="desig" class="insert" value={desig} onChange={ e => onInputChange(e)} >
+              <option value="Manager">Manager</option>
+              <option value="Admin">Admin</option>
+              <option value="Supervisor">Supervisor</option>
+              <option value="Staff">Staff</option>
             </select>
             {Object.keys(desigErr).map((key)=>{
               return <div style={{color: "#ff2b2b"}}>{desigErr[key]}</div>
@@ -278,7 +278,7 @@ const AddUser = () => {
           </td>
           <td>
           Choose Department<br/>
-          <select name="dept" value={dept} onChange={ e => onInputChange(e)} >
+          <select name="dept" class="insert" value={dept} onChange={ e => onInputChange(e)} >
           <option value="HR">HR</option>
           <option value="Account">Account</option>
           <option value="Sales">Sales</option>

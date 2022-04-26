@@ -24,6 +24,7 @@ const driverRouter = require("./routes/Transport_management/Driver.js");
 const deliverRouter = require("./routes/Transport_management/Deliver.js");
 const outletRouter = require("./routes/Outlet_Management/Outlet.js");
 const outletOrderRouter = require("./routes/Outlet_Management/Outlet_Order.js");
+const machineRouter = require("./routes/Machinary_management/Machine.js");
 
 
 app.get("/", (req, res) => {
@@ -40,6 +41,7 @@ app.use("/driver", driverRouter);
 app.use("/deliver", deliverRouter);
 app.use("/outlet", outletRouter);
 app.use("/outletOrder", outletOrderRouter);
+app.use("/machine", machineRouter);
 
 app.listen(PORT, () => {
     console.log(`Server is running on port number: ${PORT}`);

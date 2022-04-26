@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import axios from 'axios';
 import { useHistory, useParams } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Driver() {
 
@@ -32,18 +34,106 @@ export default function Driver() {
 
     const onSubmit = async e => {
         e.preventDefault();
-        await axios.post('http://localhost:5000/driver/add/', driver).then(() => {
-            alert("driver added successfully");
-        }).catch((err) => {
-            alert(err);
-        })
-    
-        history.push("/");          
+        const valid = formValidation();
+        if(valid){
+            await axios.post('http://localhost:5000/driver/add/', driver).then(() => {
+                alert("driver added successfully");
+            }).catch((err) => {
+                alert(err);
+            })    
+            history.push("/");
+        }
+                  
     }
+
+    const formValidation = () =>{
+  
+        let isValid = true;
+
+        if(firstName.trim().length === 0){
+            toast.error("Please insert color");
+            isValid = false;
+        }
+        else if(lastName.trim().length === 0){
+            toast.error("Please insert size");
+            isValid = false;
+        }
+    
+        else if(!email.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i)){
+            toast.error("Please insert quantity");
+            isValid = false;
+        }
+
+        else if(!password.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/)){
+            toast.error("Please insert quantity");
+            isValid = false;
+        }
+
+        else if(phone.trim().length === 0){
+            toast.error("Please insert quantity");
+            isValid = false;
+        }
+
+        else if(address.trim().length === 0){
+            toast.error("Please insert quantity");
+            isValid = false;
+        }
+
+        else if(lisenNo.trim().length === 0){
+            toast.error("Please insert quantity");
+            isValid = false;
+        }
+
+        else if(vehicleReg.trim().length === 0){
+            toast.error("Please insert quantity");
+            isValid = false;
+        }
+
+        else if(vType.trim().length === 0){
+            toast.error("Please insert quantity");
+            isValid = false;
+        } 
+        else if(vModel.trim().length === 0){
+            toast.error("Please insert quantity");
+            isValid = false;
+        }
+        else if(vColor.trim().length === 0){
+            toast.error("Please insert quantity");
+            isValid = false;
+        }
+        else if(vYear.trim().length === 0){
+            toast.error("Please insert quantity");
+            isValid = false;
+        }
+        else if(vInsCom.trim().length === 0){
+            toast.error("Please insert quantity");
+            isValid = false;
+        }
+        else if(vInsID.trim().length === 0){
+            toast.error("Please insert quantity");
+            isValid = false;
+        }
+  
+        return isValid;
+      }
 
     return(
         <div class="driver-include">
             <form onSubmit={e => onSubmit(e)}>
+
+                <ToastContainer style={{ width: "450px", textAlign: 'center', fontSize: '17px', fontFamily: 'fantasy' }}
+                    position="top-center"
+                    theme='light'
+                    autoClose={5000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                    limit={1}
+                />
 
                 <br/><center><h3>Driver Add Page</h3></center>
 

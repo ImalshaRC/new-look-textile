@@ -7,15 +7,14 @@ export default function Summary() {
     // const { id } = useParams();
 
     const [order, setOrder] = useState({
-        color: "",
-        size: "",
-        quantity: "",
+        pdName: "",
+        oColor: "",
+        oSize: "",
+        oQuantity: "",
         total: ""
     });
 
-    const { color, size, quantity, total } = order;
-
-    
+    const { pdName, oColor, oSize, oQuantity, total } = order;
 
     const search = useLocation().search;
     const fullName = new URLSearchParams(search).get('fullName');
@@ -40,14 +39,12 @@ export default function Summary() {
     return(
         <div class="include">            
 
-            <br/><center><h3>Thanks for your order</h3></center>
+            <br/><center><h3>Thanks for your order</h3></center><br/>
 
             <table class="summary-table">
                 <tr>
                     <td>
-                        <h6>Price</h6>
-                        <h6>Product name</h6>
-                        <h6>Product code</h6>
+                        <h6><b>Product name:</b> {pdName}</h6>
                     </td>                    
                     <td>
                         <h6><b>Shipping personal details</b></h6>
@@ -58,9 +55,9 @@ export default function Summary() {
                 </tr>
                 <tr>
                     <td>
-                        <h6><b>Color:</b> {color}</h6>
-                        <h6><b>Size:</b> {size}</h6>
-                        <h6><b>Quantity:</b> {quantity}</h6>
+                        <h6><b>Color:</b> {oColor}</h6>
+                        <h6><b>Size:</b> {oSize}</h6>
+                        <h6><b>Quantity:</b> {oQuantity}</h6>
                     </td>
                     <td>
                         <h6><b>Shipping address</b></h6>
