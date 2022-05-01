@@ -24,13 +24,11 @@ import SettingsIcon from '@material-ui/icons/Settings';
 
     const cookies = new Cookies();
 
-    console.log(cookies.get("token"));
-
     let history = useHistory();
 
     const goToLogOut = () => {
 
-        cookies.remove("token", {path: "/"})
+        cookies.remove("designation", {path: "/"});
         history.push("/signin");        
     }
    
