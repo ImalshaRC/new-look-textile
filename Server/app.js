@@ -25,6 +25,9 @@ const deliverRouter = require("./routes/Transport_management/Deliver.js");
 const outletRouter = require("./routes/Outlet_Management/Outlet.js");
 const outletOrderRouter = require("./routes/Outlet_Management/Outlet_Order.js");
 const machineRouter = require("./routes/Machinary_management/Machine.js");
+const customerRouter = require("./routes/Customer_Mangement/Customer.js");
+const userRouter = require("./routes/User_Management/User.js");
+const authRouter = require("./routes/User_Management/Auth.js");
 
 
 app.get("/", (req, res) => {
@@ -42,6 +45,9 @@ app.use("/deliver", deliverRouter);
 app.use("/outlet", outletRouter);
 app.use("/outletOrder", outletOrderRouter);
 app.use("/machine", machineRouter);
+app.use("/customer", customerRouter);
+app.use("/user", userRouter);
+app.use("/auth", authRouter);
 
 app.listen(PORT, () => {
     console.log(`Server is running on port number: ${PORT}`);

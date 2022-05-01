@@ -52,7 +52,7 @@ export default function OrderManagement() {
                 <td><center>{order.pCode}</center></td> 
                 <td><center>{order.method}</center></td>          
                 <td scope="col"><center>
-                    <Link to={`/deliver/${order._id}`}><button class="table_btns">Deliver</button></Link></center>
+                    <Link to={`/section/deliver/${order._id}`}><button class="table_btns">Deliver</button></Link></center>
                 </td>
             </tr> 
         ))

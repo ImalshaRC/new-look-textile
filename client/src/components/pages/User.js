@@ -132,7 +132,7 @@ const User = () => {
 
       <center>
       <button type = "submit" onclick="" class="button">Tap to Edit details</button>
-      <Link to={`/employeelist/`}><button onclick="" class="button">back</button></Link>
+      <Link to={`/section/employeelist/`}><button onclick="" class="button">back</button></Link>
       </center>
     
     </form>

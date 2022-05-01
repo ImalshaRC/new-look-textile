@@ -48,11 +48,11 @@ export default function MachineList() {
     let history = useHistory();
 
     const goToMachine = () => {
-        history.push("/machine");
+        history.push("/section/machine");
     }
 
     const goToCategories = () => {
-        history.push("/machineCategory");
+        history.push("/section/machineCategory");
     }
 
     // const goToOutletSummary = () => {
@@ -115,7 +115,7 @@ export default function MachineList() {
                 <td><center>{machine.content}</center></td>
                 <td><center>{machine.category}</center></td>
                 <td scope="col"><center>
-                    <Link to={`/update-machine/${machine._id}`}><button class="table_btns">Update</button></Link>&nbsp;
+                    <Link to={`/section/update-machine/${machine._id}`}><button class="table_btns">Update</button></Link>&nbsp;
                     <button class="table_btns" onClick={() => {deleteMachine(machine._id)}}>Delete</button>
                     </center></td>
             </tr> 

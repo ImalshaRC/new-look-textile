@@ -47,7 +47,7 @@ export default function DriverList() {
     let history = useHistory();
 
     const goToAddDriver = () => {
-        history.push("/driver");
+        history.push("/section/driver");
     }
 
     return(
@@ -120,8 +120,8 @@ export default function DriverList() {
                 <td><center>{driver.vInsCom}</center></td> 
                 <td><center>{driver.vInsID}</center></td>          
                 <td scope="col"><center>
-                    <Link to={`/driver-profile/${driver._id}`}><button class="table_btns">View</button></Link>&nbsp;
-                    <Link to={`/update-driver/${driver._id}`}><button class="table_btns">Update</button></Link>&nbsp;
+                    <Link to={`/section/driver-profile/${driver._id}`}><button class="table_btns">View</button></Link>&nbsp;
+                    <Link to={`/section/update-driver/${driver._id}`}><button class="table_btns">Update</button></Link>&nbsp;
                     <button onClick={() => {deleteUser(driver._id)}} class="table_btns">Delete</button></center>
                 </td>
             </tr> 

@@ -66,15 +66,15 @@ export default function ProductList() {
     let history = useHistory();
 
     const goToCategory = () => {
-        history.push("/productcategory");
+        history.push("/section/productcategory");
     }
 
     const goToAddProduct = () => {
-        history.push("/product");
+        history.push("/section/product");
     }
 
     const goToProductSummary = () => {
-        history.push("/product-summary");
+        history.push("/section/product-summary");
     }
 
     return(
@@ -140,7 +140,7 @@ export default function ProductList() {
                 <td><center>{product.color}</center></td>   
                 <td><center>{product.date}</center></td>             
                 <td scope="col"><center>
-                    <Link to={`/update-product/${product._id}`}><button class="table_btns">Update</button></Link>&nbsp;
+                    <Link to={`/section/update-product/${product._id}`}><button class="table_btns">Update</button></Link>&nbsp;
                     {/* <Link to={`/payment/${product._id}`}><button class="table_btns">Payment</button></Link>&nbsp; */}
                     <button onClick={() => {deleteProduct(product._id)}} class="table_btns">Delete</button></center>
                 </td>

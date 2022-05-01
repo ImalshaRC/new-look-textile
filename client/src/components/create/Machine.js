@@ -33,7 +33,7 @@ export default function AddMachine() {
             }).catch((err) => {
                 alert(err);
             })
-            history.push("/");
+            history.push("/machinelist");
         }                  
     }
 
@@ -41,7 +41,7 @@ export default function AddMachine() {
   
         let isValid = true;
 
-        if(machineID.trim().length === 0){
+        if(!machineID.match(/^([A-Z]{2,2})([0-9]{8,8})$/)){
             toast.error("Please insert color");
             isValid = false;
         }

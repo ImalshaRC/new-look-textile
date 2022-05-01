@@ -77,7 +77,7 @@ function Attendance(){
         }).catch((err) => {
             alert(err);
         })
-        history.push("/employeelist");
+        history.push("/section/employeelist");
         
     }
 
@@ -109,7 +109,7 @@ function Attendance(){
                             Start time<br/>
                             <input type="time" id="startTime" name="startTime"  value={startTime} onChange={ e => onInputChange(e)}/><br/><br/>
                             <button class="button" type="submit">Start Now</button>
-                            <Link to={`/employeelist/`}><button onclick="" class="button">back</button></Link>
+                            <Link to={`/section/employeelist/`}><button onclick="" class="button">back</button></Link>
                             </center>
                         </div>
                     </Grid>

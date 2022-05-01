@@ -78,7 +78,7 @@ const AddUser = () => {
               alert(err);
           })
         
-          history.push("/employeelist");
+          history.push("/section/employeelist");
         }   
     }
 

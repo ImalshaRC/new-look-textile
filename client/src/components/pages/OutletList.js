@@ -47,15 +47,15 @@ export default function OutletList() {
     let history = useHistory();
 
     const goToCategory = () => {
-        history.push("/outlet");
+        history.push("/section/outlet");
     }
 
     const goToOutletOrderList = () => {
-        history.push("/outletorderlist");
+        history.push("/section/outletorderlist");
     }
 
     const goToOutletSummary = () => {
-        history.push("/outlet-summary");
+        history.push("/section/outlet-summary");
     }
 
     return(
@@ -124,8 +124,8 @@ export default function OutletList() {
                 <td><center>{outlet.outletPhone}</center></td>
                 <td scope="col"><center>
                     {/* <Link to={`/User/${outlet._id}`}><button class="table_btns">View</button></Link>&nbsp; */}
-                    <Link to={`/outlet-order/${outlet._id}`}><button class="table_btns">Order</button></Link>&nbsp;
-                    <Link to={`/update-outlet/${outlet._id}`}><button class="table_btns">Update</button></Link>&nbsp;
+                    <Link to={`/section/outlet-order/${outlet._id}`}><button class="table_btns">Order</button></Link>&nbsp;
+                    <Link to={`/section/update-outlet/${outlet._id}`}><button class="table_btns">Update</button></Link>&nbsp;
                     <button class="table_btns" onClick={() => {deleteUser(outlet._id)}}>Delete</button>
                     </center></td>
             </tr> 

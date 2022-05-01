@@ -4,21 +4,21 @@ import { Link, useHistory } from 'react-router-dom';
 import '../css/styles.css';
 import '../css/css1.css';
 
-export default function MyCart() {
+export default function CustomerList() {
 
-    const [orders, setOrder] = useState([]);
+    const [customers, setCustomers] = useState([]);
     useEffect(() => {
-        loadOrder();
+        loadCustomer();
     }, []);
 
-    const loadOrder = async() => {
-        const result = await axios.get('http://localhost:5000/order/');
-        setOrder(result.data.reverse());
+    const loadCustomer = async() => {
+        const result = await axios.get('http://localhost:5000/customer/');
+        setCustomers(result.data.reverse());
     }
 
-    const deleteUser = async id => {
-        await axios.delete("http://localhost:5000/order/delete/" + id);
-        loadOrder();
+    const deleteCustomer = async id => {
+        await axios.delete("http://localhost:5000/customer/delete/" + id);
+        loadCustomer();
     }
 
     const [searchText, setSearchText] = useState('');
@@ -32,34 +32,32 @@ export default function MyCart() {
     const filterData = value => {
         const lowerCaseValue = value.toLowerCase().trim();
         if(!lowerCaseValue){
-            loadOrder();
+            loadCustomer();
         }
         else{      
-            const filteredData = orders.filter(item => {
+            const filteredData = customers.filter(item => {
                 return Object.keys(item).some(key => {
                     return item[key].toString().toLowerCase().includes(lowerCaseValue);
                 })
             });
-            setOrder(filteredData);
+            setCustomers(filteredData);
         }
     }
 
     let history = useHistory();
 
-    const goToAddOrder = () => {
-        history.push("/section/myorder");
+    const goToAddCustomer = () => {
+        history.push("/section/customer");
     }
 
     return(
         <div>
-
-
             <div className="searchPanel">
                 <div className="searchPanel_addNew">
                 <div className="searchPanel_addNew d-flex">
-                    {/* <button className="newCustomer_btn" onClick={goToAddOrder}>
-                        Add Order
-                    </button> */}
+                    <button className="newCustomer_btn" onClick={goToAddCustomer}>
+                        Add Cuatomer
+                    </button>
                     {/* <button onClick={goToOutletOrderList} className="newCustomer_btn mx-4">
                         All Outlet Orders
                     </button>                     */}
@@ -75,7 +73,6 @@ export default function MyCart() {
                 </form>
             </div>
 
-
             <i></i>
             <div className="tableContent">
 
@@ -84,29 +81,28 @@ export default function MyCart() {
             <table id="table">
         <thead>
             <tr>
-                <th scope="col">Order ID</th>
-                <th scope="col">Product Name</th>
-                <th scope="col">Color</th>
-                <th scope="col">Size</th>
-                <th scope="col">Quantity</th>
-                <th scope="col">Total Price</th>                
+                <th scope="col">Index</th>
+                <th scope="col">User Name</th>
+                <th scope="col">Birth Date</th>
+                <th scope="col">Phone</th>                
+                <th scope="col">Address</th>
+                <th scope="col">E-mail</th>
                 <th scope="col">action</th>
             </tr>
         </thead>
         <tbody>
-    {
-        orders.map((order, index) => (
+    {customers.map((customer, index) => (
             <tr>
                 <center><td >{index + 1}</td></center>
-                <td><center>{order.pdName}</center></td>  
-                <td><center>{order.oColor}</center></td> 
-                <td><center>{order.oSize}</center></td>
-                <td><center>{order.oQuantity}</center></td>
-                <td><center>{order.total}</center></td>          
+                <td><center>{customer.userName}</center></td>
+                <td><center>{customer.birthDate}</center></td> 
+                <td><center>{customer.phone}</center></td> 
+                <td><center>{customer.address}</center></td> 
+                <td><center>{customer.email}</center></td>          
                 <td scope="col"><center>
-                    <Link to={`/section/updateorder/${order._id}`}><button class="table_btns">Update</button></Link>&nbsp;
-                    <Link to={`/section/payment/${order._id}`}><button class="table_btns">Payment</button></Link>&nbsp;
-                    <button onClick={() => {deleteUser(order._id)}} class="table_btns">Delete</button></center>
+                    <Link to={`/section/customer-profile/${customer._id}`}><button class="table_btns">View</button></Link>&nbsp;
+                    <Link to={`/section/update-customer/${customer._id}`}><button class="table_btns">Update</button></Link>&nbsp;
+                    <button onClick={() => {deleteCustomer(customer._id)}} class="table_btns">Delete</button></center>
                 </td>
             </tr> 
         ))
@@ -115,7 +111,7 @@ export default function MyCart() {
 </table>
 {/* </div> */}
 </div>
-    {orders.length === 0 && <span>no records found to display</span>}
+    {customers.length === 0 && <span>no records found to display</span>}
         </div>
     )
 }

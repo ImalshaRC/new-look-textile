@@ -69,7 +69,7 @@ function EmployeeList(){
     let history = useHistory();
 
     const goToAddEmployee = () => {
-        history.push("/user-add");
+        history.push("/section/user-add");
     }
 
     return(
@@ -151,9 +151,9 @@ function EmployeeList(){
                 <td>{user.email}</td>
                 <td>{user.salary}</td>
                 <td>
-                    <Link to={`/User/${user._id}`}><button class="table_btns">View</button></Link>&nbsp;
-                    <Link to={`/test-edit/${user._id}`}><button class="table_btns">Update</button></Link>&nbsp;
-                    <Link to={`/attendance/${user.userID}`}><button class="table_btns">Attds</button></Link>&nbsp;
+                    <Link to={`/section/User/${user._id}`}><button class="table_btns">View</button></Link>&nbsp;
+                    <Link to={`/section/test-edit/${user._id}`}><button class="table_btns">Update</button></Link>&nbsp;
+                    <Link to={`/section/attendance/${user.userID}`}><button class="table_btns">Attds</button></Link>&nbsp;
                     <button class="table_btns" onClick={() => {deleteUser(user._id)}}>Delete</button>
                 </td>
             </tr> 

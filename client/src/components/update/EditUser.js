@@ -40,7 +40,7 @@ const EditUser = () => {
         }).catch((err) => {
             alert(err);
         })
-        history.push("/employeelist");
+        history.push("/section/employeelist");
     };
 
     useEffect(() => {
@@ -144,7 +144,7 @@ const EditUser = () => {
       <center>
       <button type = "submit" onclick="" class="button">Submit</button>
       <button type = "reset" onclick="" class="button">reset</button>
-      <Link to={`/employeelist/`}><button onclick="" class="button">back</button></Link>
+      <Link to={`/section/employeelist/`}><button onclick="" class="button">back</button></Link>
       </center>
     
     </form>

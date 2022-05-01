@@ -47,7 +47,7 @@ export default function OutletOrderList() {
     let history = useHistory();
 
     const goToCategory = () => {
-        history.push("/outlet");
+        history.push("/section/outlet");
     }
 
     return(

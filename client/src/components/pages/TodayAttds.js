@@ -126,7 +126,7 @@ function TodayAttds() {
                 <td><center>{attd.startTime}</center></td>
                 <td><center>{attd.leaveTime}</center></td>
                 <td>
-                    <center><Link to={`/editattds/${attd._id}`}><button class="table_btns">Add Leave time</button></Link></center>
+                    <center><Link to={`/section/editattds/${attd._id}`}><button class="table_btns">Add Leave time</button></Link></center>
                 </td>
             </tr>
         ))

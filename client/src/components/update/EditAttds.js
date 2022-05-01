@@ -75,7 +75,7 @@ function EditAttds(){
         }).catch((err) => {
             alert(err);
         })
-        history.push("/employeelist");
+        history.push("/section/employeelist");
                
     }
 
