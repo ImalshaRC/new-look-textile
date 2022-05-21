@@ -56,7 +56,7 @@ import SettingsIcon from '@material-ui/icons/Settings';
 
             <div align="right">
                 <Link to="/signin"><button name ="Login" class ="btn1">Login</button></Link>
-                <Link to="/signup"><button name ="Sign in" class ="btn2">Sign Up</button></Link>
+                <Link to="/section/customer"><button name ="Sign in" class ="btn2">Sign Up</button></Link>
             </div>
         
             <hr class= "hr2"></hr>

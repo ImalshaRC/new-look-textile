@@ -6,6 +6,15 @@ import '../css/css1.css';
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 
+
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+
+
 function EmployeeList(){
 
     //generate pdf
@@ -61,10 +70,7 @@ function EmployeeList(){
         setUser(result.data.reverse());
     }
 
-    const deleteUser = async id => {
-        await axios.delete("http://localhost:5000/newstaff/delete/" + id);
-        loadUser();
-    }
+   
 
     let history = useHistory();
 
@@ -72,10 +78,58 @@ function EmployeeList(){
         history.push("/section/user-add");
     }
 
+    const goToEmployeeSummary = () => {
+        history.push("/section/employee-summary");
+    }
+
+    const  [employeeID, setEmployeeID] = useState("");
+
+    const [open, setOpen] = useState(false); 
+
+    const handleClickOpen = (id) => {
+        setOpen(true);
+        setEmployeeID(id);
+    };
+  
+    const onCancel = () => {
+        setOpen(false);
+    };
+
+    const deleteUser = async () => {
+        await axios.delete("http://localhost:5000/newstaff/delete/" + employeeID);
+        loadUser();
+        setOpen(false);
+    }
+
     return(
         <div>
-            <div className="searchPanel">
-                <div>
+
+
+            <Dialog
+                open={open}
+                onClose={onCancel}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+            >
+                <DialogTitle id="alert-dialog-title">
+                {"Are you sure you want to delete this?"}
+                </DialogTitle>
+                <DialogContent>
+                <DialogContentText id="alert-dialog-description">
+                    Please confirm Here
+                </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                <Button onClick={onCancel}>Cancel</Button>
+                <Button onClick={deleteUser} autoFocus>
+                    Agree
+                </Button>
+                </DialogActions>
+            </Dialog>
+
+
+            <div className="searchPanel d-flex">
+                <div >
                     <button className="newCustomer_btn">
                         <svg xmlns="http://www.w3.org/2000/svg" class="bi bi-person-plus-fill" viewBox="0 0 16 16">
                             <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
@@ -88,16 +142,19 @@ function EmployeeList(){
                     </button>
                 </div>&nbsp;&nbsp;
 
-                {/* <div>
-                    <button className="newCustomer_btn">
-                        <Link to={`/qr`}><span>Generate Barcode</span></Link>
-                    </button>
-                </div>&nbsp;&nbsp; */}
-
                 <div className="searchPanel_addNew">
+                <div className="searchPanel_addNew d-flex">
                     <button className="newCustomer_btn" onClick={printDocument}>
                         Generate PDF
+                    </button>&nbsp;&nbsp;
+                    <button className="newCustomer_btn" onClick={goToEmployeeSummary}>
+                        Summary
                     </button>
+                </div>
+                </div>
+
+                <div className="searchPanel_addNew">
+                    
                 </div>
 
                 <form className="searchBar">
@@ -154,7 +211,7 @@ function EmployeeList(){
                     <Link to={`/section/User/${user._id}`}><button class="table_btns">View</button></Link>&nbsp;
                     <Link to={`/section/test-edit/${user._id}`}><button class="table_btns">Update</button></Link>&nbsp;
                     <Link to={`/section/attendance/${user.userID}`}><button class="table_btns">Attds</button></Link>&nbsp;
-                    <button class="table_btns" onClick={() => {deleteUser(user._id)}}>Delete</button>
+                    <button class="table_btns" onClick={() => {handleClickOpen(user._id)}}>Delete</button>
                 </td>
             </tr> 
         ))

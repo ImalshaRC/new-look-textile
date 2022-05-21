@@ -33,7 +33,7 @@ export default function Customer() {
         e.preventDefault();
         const valid = formValidation();
         if(valid){
-            await axios.post('http://localhost:5000/customer/add/', customer).then(() => {
+            await axios.post('http://localhost:5000/user/add/', customer).then(() => {
                 alert("customer added successfully");
             }).catch((err) => {
                 alert(err);
@@ -67,17 +67,17 @@ export default function Customer() {
         }
 
         else if(phone.trim().length === 0){
-            toast.error("Please insert quantity");
+            toast.error("Please insert quantity1");
             isValid = false;
         }
 
         else if(address.trim().length === 0){
-            toast.error("Please insert quantity");
+            toast.error("Please insert quantity2");
             isValid = false;
         } 
     
         else if(!email.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i)){
-            toast.error("Please insert quantity");
+            toast.error("Please insert quantity3");
             isValid = false;
         }
 
@@ -166,11 +166,11 @@ export default function Customer() {
                     <tr>
                         <td>
                             Password
-                            <input type="password" name="password" value={password} placeholder="Enter Your Password" onChange={ e => onInputChange(e)}/>
+                            <input type="password" id="psw-input-field" name="password" value={password} placeholder="Enter Your Password" onChange={ e => onInputChange(e)}/>
                         </td>
                         <td className="tb-right">
                             Re Enter Password
-                            <input type="password" name="rePassword" value={rePassword} placeholder="Enter Your Password" onChange={ e => onInputChange(e)}/>
+                            <input type="password" id="psw-input-field" name="rePassword" value={rePassword} placeholder="Enter Your Password" onChange={ e => onInputChange(e)}/>
                         </td>
                     </tr>
                     <tr className="d-flex">

@@ -155,7 +155,7 @@ export default function Driver() {
                         </td>
                         <td className="tb-right">
                             Password
-                            <input type="password" name="password" value={password} placeholder="Enter Your E-mail" onChange={ e => onInputChange(e)}/>
+                            <input type="password" id="psw-input-field" name="password" value={password} placeholder="Enter Your E-mail" onChange={ e => onInputChange(e)}/>
                         </td>
                     </tr>
                     <tr>

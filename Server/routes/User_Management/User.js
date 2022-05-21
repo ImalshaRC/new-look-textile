@@ -1,5 +1,5 @@
 const router = require("express").Router();
-let {User, validate} = require("../../models/User_Management/User");
+let {Customer, validate} = require("../../models/User_Management/Customer");
 const bcrypt = require("bcrypt");
 const dotenv = require("dotenv");
 require("dotenv").config();
@@ -30,7 +30,7 @@ router.route("/add").post(async (req, res) => {
 
 	try {		
         const { error } = validate(req.body.user);
-        const user = await User.findOne({ email: req.body.email });
+        const user = await Customer.findOne({ email: req.body.email });
 
         if (error){
             return res.status(400).send({ message: error.details[0].message });
@@ -49,7 +49,7 @@ router.route("/add").post(async (req, res) => {
                     const salt = await bcrypt.genSalt(Number(process.env.SALT));
                     const hashPassword = await bcrypt.hash(req.body.password, salt);
 
-                    await new User({ ...req.body, password: hashPassword, verify: false, token: token }).save();
+                    await new Customer({ ...req.body, password: hashPassword, verify: false, token: token }).save();
                     res.status(201).send({ message: "User created successfully" });
                 }
             });
@@ -60,37 +60,8 @@ router.route("/add").post(async (req, res) => {
 	}
 });
 
-
-
-
-
-
-
-
-
-
-
-
-
-// router.route("/add___").post((req, res) => {
-
-//     const email = req.body.email;
-//     const designation = req.body.designation;
-//     const password = req.body.password;
-
-//     const newUser = new User({
-//         firstName, surname, email, designation, password
-//     })
-
-//     newUser.save().then(() => {
-//         res.json("user added successfully");
-//     }).catch((err) => {
-//         console.log(err);
-//     })
-// })
-
 router.route("/get").get((req, res) => {
-    User.find().then((user) => {
+    Customer.find().then((user) => {
         res.json(user);
     }).catch((err) => {
         console.log(err);
@@ -104,7 +75,7 @@ router.route("/find_id/:email").get(async (req, res) => {
         email: Email
     }
 
-    await User.find(query).then((user) => {
+    await Customer.find(query).then((user) => {
         res.json(user);
     }).catch((err) => {
         console.log(err.message);
@@ -120,7 +91,7 @@ router.route("/update/:id").put(async (req, res) => {
         firstName, surname, email, designation, password
         }
 
-    const update = await User.findByIdAndUpdate(userID, user).then(() => {
+    const update = await Customer.findByIdAndUpdate(userID, user).then(() => {
 
         res.status(200).send({status: "data updated"});
     }).catch((err) => {
@@ -132,7 +103,7 @@ router.route("/update/:id").put(async (req, res) => {
 router.route("/delete/:id").delete(async (req, res) => {
     let userID = req.params.id;
 
-    await User.findByIdAndDelete(userID).then(() => {
+    await Customer.findByIdAndDelete(userID).then(() => {
 
         res.status(200).send({status: "data deleted"});
     }).catch((err) => {

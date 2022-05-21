@@ -4,6 +4,13 @@ import { Link, useHistory } from 'react-router-dom';
 import '../css/styles.css';
 import '../css/css1.css';
 
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+
 export default function CustomerList() {
 
     const [customers, setCustomers] = useState([]);
@@ -14,12 +21,10 @@ export default function CustomerList() {
     const loadCustomer = async() => {
         const result = await axios.get('http://localhost:5000/customer/');
         setCustomers(result.data.reverse());
+        console.log(result.data);
     }
 
-    const deleteCustomer = async id => {
-        await axios.delete("http://localhost:5000/customer/delete/" + id);
-        loadCustomer();
-    }
+    
 
     const [searchText, setSearchText] = useState('');
 
@@ -50,17 +55,64 @@ export default function CustomerList() {
         history.push("/section/customer");
     }
 
+    const goToAddCustomerSummary = () => {
+        history.push("/section/customer-summary");
+    }
+
+    const  [customerID, setCustomerID] = useState("");
+
+    const [open, setOpen] = useState(false); 
+
+    const handleClickOpen = (id) => {
+        setOpen(true);
+        setCustomerID(id);
+    };
+  
+    const onCancel = () => {
+        setOpen(false);
+    };
+
+    const deleteCustomer = async () => {
+        await axios.delete("http://localhost:5000/customer/delete/" + customerID);
+        loadCustomer();
+        setOpen(false);
+    }
+
     return(
         <div>
+
+            <Dialog
+                open={open}
+                onClose={onCancel}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+            >
+                <DialogTitle id="alert-dialog-title">
+                {"Are you sure you want to delete this?"}
+                </DialogTitle>
+                <DialogContent>
+                <DialogContentText id="alert-dialog-description">
+                    Please confirm Here
+                </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                <Button onClick={onCancel}>Cancel</Button>
+                <Button onClick={deleteCustomer} autoFocus>
+                    Agree
+                </Button>
+                </DialogActions>
+            </Dialog>
+
+
             <div className="searchPanel">
                 <div className="searchPanel_addNew">
                 <div className="searchPanel_addNew d-flex">
                     <button className="newCustomer_btn" onClick={goToAddCustomer}>
                         Add Cuatomer
                     </button>
-                    {/* <button onClick={goToOutletOrderList} className="newCustomer_btn mx-4">
-                        All Outlet Orders
-                    </button>                     */}
+                    <button onClick={goToAddCustomerSummary} className="newCustomer_btn mx-4">
+                        Summary
+                    </button>                    
                 </div>
                 </div>
                 <form className="searchBar">
@@ -102,7 +154,7 @@ export default function CustomerList() {
                 <td scope="col"><center>
                     <Link to={`/section/customer-profile/${customer._id}`}><button class="table_btns">View</button></Link>&nbsp;
                     <Link to={`/section/update-customer/${customer._id}`}><button class="table_btns">Update</button></Link>&nbsp;
-                    <button onClick={() => {deleteCustomer(customer._id)}} class="table_btns">Delete</button></center>
+                    <button onClick={() => {handleClickOpen(customer._id)}} class="table_btns">Delete</button></center>
                 </td>
             </tr> 
         ))

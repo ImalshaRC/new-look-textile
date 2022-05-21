@@ -6,6 +6,13 @@ import '../css/css1.css';
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+
 export default function ProductList() {
 
     let docToPrint = React.createRef();
@@ -33,11 +40,6 @@ export default function ProductList() {
     const loadProducts = async() => {
         const result = await axios.get('http://localhost:5000/product/');
         setProducts(result.data.reverse());
-    }
-
-    const deleteProduct = async id => {
-        await axios.delete("http://localhost:5000/product/delete/" + id);
-        loadProducts();
     }
 
     const [searchText, setSearchText] = useState('');
@@ -77,8 +79,49 @@ export default function ProductList() {
         history.push("/section/product-summary");
     }
 
+    const  [employeeID, setEmployeeID] = useState("");
+
+    const [open, setOpen] = useState(false); 
+
+    const handleClickOpen = (id) => {
+        setOpen(true);
+        setEmployeeID(id);
+    };
+  
+    const onCancel = () => {
+        setOpen(false);
+    };
+
+    const deleteProduct = async () => {
+        await axios.delete("http://localhost:5000/product/delete/" + employeeID);
+        loadProducts();
+        setOpen(false);
+    }
+
     return(
         <div>
+
+            <Dialog
+                open={open}
+                onClose={onCancel}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+            >
+                <DialogTitle id="alert-dialog-title">
+                {"Are you sure you want to delete this?"}
+                </DialogTitle>
+                <DialogContent>
+                <DialogContentText id="alert-dialog-description">
+                    Please confirm Here
+                </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                <Button onClick={onCancel}>Cancel</Button>
+                <Button onClick={deleteProduct} autoFocus>
+                    Agree
+                </Button>
+                </DialogActions>
+            </Dialog>
 
             <div className="searchPanel">
                 <div className="searchPanel_addNew">
@@ -142,7 +185,7 @@ export default function ProductList() {
                 <td scope="col"><center>
                     <Link to={`/section/update-product/${product._id}`}><button class="table_btns">Update</button></Link>&nbsp;
                     {/* <Link to={`/payment/${product._id}`}><button class="table_btns">Payment</button></Link>&nbsp; */}
-                    <button onClick={() => {deleteProduct(product._id)}} class="table_btns">Delete</button></center>
+                    <button onClick={() => {handleClickOpen(product._id)}} class="table_btns">Delete</button></center>
                 </td>
             </tr> 
         ))

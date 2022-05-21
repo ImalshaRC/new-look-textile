@@ -4,6 +4,13 @@ import { Link, useHistory } from 'react-router-dom';
 import '../css/styles.css';
 import '../css/css1.css';
 
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+
 export default function DriverList() {
 
     const [drivers, setDrivers] = useState([]);
@@ -16,10 +23,7 @@ export default function DriverList() {
         setDrivers(result.data.reverse());
     }
 
-    const deleteUser = async id => {
-        await axios.delete("http://localhost:5000/driver/delete/" + id);
-        loadDriver();
-    }
+   
 
     const [searchText, setSearchText] = useState('');
 
@@ -50,8 +54,54 @@ export default function DriverList() {
         history.push("/section/driver");
     }
 
+    // const goToDriverSummary = () => {
+    //     history.push("/section/product-summary");
+    // }
+
+    const  [customerID, setCustomerID] = useState("");
+
+    const [open, setOpen] = useState(false); 
+
+    const handleClickOpen = (id) => {
+        setOpen(true);
+        setCustomerID(id);
+    };
+  
+    const onCancel = () => {
+        setOpen(false);
+    };
+
+    const deleteUser = async () => {
+        await axios.delete("http://localhost:5000/driver/delete/" + customerID);
+        loadDriver();
+        setOpen(false);
+    }
+
     return(
         <div>
+
+
+            <Dialog
+                open={open}
+                onClose={onCancel}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+            >
+                <DialogTitle id="alert-dialog-title">
+                {"Are you sure you want to delete this?"}
+                </DialogTitle>
+                <DialogContent>
+                <DialogContentText id="alert-dialog-description">
+                    Please confirm Here
+                </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                <Button onClick={onCancel}>Cancel</Button>
+                <Button onClick={deleteUser} autoFocus>
+                    Agree
+                </Button>
+                </DialogActions>
+            </Dialog>
 
 
             <div className="searchPanel">
@@ -60,7 +110,7 @@ export default function DriverList() {
                     <button className="newCustomer_btn" onClick={goToAddDriver}>
                         Add Driver
                     </button>
-                    {/* <button onClick={goToOutletOrderList} className="newCustomer_btn mx-4">
+                    {/* <button onClick={goToDriverSummary} className="newCustomer_btn mx-4">
                         All Outlet Orders
                     </button>                     */}
                 </div>
@@ -122,7 +172,7 @@ export default function DriverList() {
                 <td scope="col"><center>
                     <Link to={`/section/driver-profile/${driver._id}`}><button class="table_btns">View</button></Link>&nbsp;
                     <Link to={`/section/update-driver/${driver._id}`}><button class="table_btns">Update</button></Link>&nbsp;
-                    <button onClick={() => {deleteUser(driver._id)}} class="table_btns">Delete</button></center>
+                    <button onClick={() => {handleClickOpen(driver._id)}} class="table_btns">Delete</button></center>
                 </td>
             </tr> 
         ))

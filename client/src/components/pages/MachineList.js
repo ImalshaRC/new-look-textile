@@ -4,6 +4,13 @@ import { Link, useHistory } from 'react-router-dom';
 import '../css/styles.css';
 import '../css/css1.css';
 
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+
 export default function MachineList() {
 
     const [machine, setMachine] = useState([]);
@@ -17,10 +24,7 @@ export default function MachineList() {
         setMachine(result.data.reverse());
     }
 
-    const deleteMachine = async (id) => {
-        await axios.delete("http://localhost:5000/machine/delete/" + id);
-        loadMachine();
-    }
+    
 
     const [searchText, setSearchText] = useState('');
 
@@ -58,9 +62,52 @@ export default function MachineList() {
     // const goToOutletSummary = () => {
     //     history.push("/outlet-summary");
     // }
+    
+    const  [customerID, setCustomerID] = useState("");
+
+    const [open, setOpen] = useState(false); 
+
+    const handleClickOpen = (id) => {
+        setOpen(true);
+        setCustomerID(id);
+    };
+  
+    const onCancel = () => {
+        setOpen(false);
+    };
+
+    const deleteMachine = async () => {
+        await axios.delete("http://localhost:5000/machine/delete/" + customerID);
+        loadMachine();
+        setOpen(false);
+    }
 
     return(
         <div>
+
+            <Dialog
+                open={open}
+                onClose={onCancel}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+            >
+                <DialogTitle id="alert-dialog-title">
+                {"Are you sure you want to delete this?"}
+                </DialogTitle>
+                <DialogContent>
+                <DialogContentText id="alert-dialog-description">
+                    Please confirm Here
+                </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                <Button onClick={onCancel}>Cancel</Button>
+                <Button onClick={deleteMachine} autoFocus>
+                    Agree
+                </Button>
+                </DialogActions>
+            </Dialog>
+
+
             <div className="searchPanel">
                 <div className="searchPanel_addNew">
                 <div className="d-flex">
@@ -116,7 +163,7 @@ export default function MachineList() {
                 <td><center>{machine.category}</center></td>
                 <td scope="col"><center>
                     <Link to={`/section/update-machine/${machine._id}`}><button class="table_btns">Update</button></Link>&nbsp;
-                    <button class="table_btns" onClick={() => {deleteMachine(machine._id)}}>Delete</button>
+                    <button class="table_btns" onClick={() => {handleClickOpen(machine._id)}}>Delete</button>
                     </center></td>
             </tr> 
         ))

@@ -125,7 +125,7 @@ export default function ProductCategory() {
                                     <div class="px-4 py-2">
                                         <div className="border border-primary bg-gradient">
                                             <div className="">                                    
-                                                <Link to={`/myorder/${product._id}`}><img className="img-thumbnail" src={img1}/></Link>
+                                                <Link to={`/section/myorder/${product._id}`}><img className="img-thumbnail" src={img1}/></Link>
                                                 <div className="d-flex justify-content-center">
                                                     <div className="col-3">
                                                         <h6>{product.pName}</h6>

@@ -4,6 +4,13 @@ import { Link, useHistory } from 'react-router-dom';
 import '../css/styles.css';
 import '../css/css1.css';
 
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+
 export default function DeliverList() {
 
     const [delivers, setDelivers] = useState([]);
@@ -16,10 +23,7 @@ export default function DeliverList() {
         setDelivers(result.data.reverse());
     }
 
-    const deleteDeliver = async id => {
-        await axios.delete("http://localhost:5000/deliver/delete/" + id);
-        loadDeliver();
-    }
+    
 
     const [searchText, setSearchText] = useState('');
 
@@ -46,23 +50,67 @@ export default function DeliverList() {
 
     let history = useHistory();
 
-    // const goToAddDriver = () => {
-    //     history.push("/driver");
-    // }
+    const goToDeliverSummary = () => {
+        history.push("/section/deliver-summary");
+    }
+
+    const  [customerID, setCustomerID] = useState("");
+
+    const [open, setOpen] = useState(false); 
+
+    const handleClickOpen = (id) => {
+        setOpen(true);
+        setCustomerID(id);
+    };
+  
+    const onCancel = () => {
+        setOpen(false);
+    };
+
+    const deleteDeliver = async () => {
+        await axios.delete("http://localhost:5000/deliver/delete/" + customerID);
+        loadDeliver();
+        setOpen(false);
+    }
 
     return(
         <div>
+
+            <Dialog
+                open={open}
+                onClose={onCancel}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+            >
+                <DialogTitle id="alert-dialog-title">
+                {"Are you sure you want to delete this?"}
+                </DialogTitle>
+                <DialogContent>
+                <DialogContentText id="alert-dialog-description">
+                    Please confirm Here
+                </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                <Button onClick={onCancel}>Cancel</Button>
+                <Button onClick={deleteDeliver} autoFocus>
+                    Agree
+                </Button>
+                </DialogActions>
+            </Dialog>
 
 
             <div className="searchPanel">
                 <div className="searchPanel_addNew">
                 <div className="searchPanel_addNew d-flex">
-                    {/* <button className="newCustomer_btn" onClick={goToAddDriver}>
-                        Add Driver
-                    </button> */}
-                    {/* <button onClick={goToOutletOrderList} className="newCustomer_btn mx-4">
-                        All Outlet Orders
-                    </button>                     */}
+                    <Link to="/section/addDeliverTable" style={{textDecoration: 'none'}}><button className="newCustomer_btn mx-2">
+                        Add Deliver
+                    </button></Link>
+                    <Link to="/section/deliverlist" style={{textDecoration: 'none'}}><button className="newCustomer_btn mx-2">
+                        Deliver List
+                    </button></Link>
+                    <button className="newCustomer_btn mx-2 px-2" onClick={goToDeliverSummary}>
+                        Summary
+                    </button>                                       
                 </div>
                 </div>
                 <form className="searchBar">
@@ -116,7 +164,7 @@ export default function DeliverList() {
                 <td><center>{deliver.deliveryTime}</center></td> 
                 <td><center>{deliver.driverPhone}</center></td>          
                 <td scope="col"><center>
-                    <button onClick={() => {deleteDeliver(deliver._id)}} class="table_btns">Delete</button></center>
+                    <button onClick={() => {handleClickOpen(deliver._id)}} class="table_btns">Delete</button></center>
                 </td>
             </tr> 
         ))

@@ -4,6 +4,13 @@ import { Link, useHistory } from 'react-router-dom';
 import '../css/styles.css';
 import '../css/css1.css';
 
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+
 export default function OutletList() {
 
     const [outlets, setOutlet] = useState([]);
@@ -16,10 +23,7 @@ export default function OutletList() {
         setOutlet(result.data.reverse());
     }
 
-    const deleteUser = async id => {
-        await axios.delete("http://localhost:5000/outlet/delete/" + id);
-        loadOutlet();
-    }
+    
 
     const [searchText, setSearchText] = useState('');
 
@@ -58,8 +62,49 @@ export default function OutletList() {
         history.push("/section/outlet-summary");
     }
 
+    const  [customerID, setCustomerID] = useState("");
+
+    const [open, setOpen] = useState(false); 
+
+    const handleClickOpen = (id) => {
+        setOpen(true);
+        setCustomerID(id);
+    };
+  
+    const onCancel = () => {
+        setOpen(false);
+    };
+
+    const deleteUser = async () => {
+        await axios.delete("http://localhost:5000/outlet/delete/" + customerID);
+        loadOutlet();
+        setOpen(false);
+    }
+
     return(
         <div>
+
+            <Dialog
+                open={open}
+                onClose={onCancel}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+            >
+                <DialogTitle id="alert-dialog-title">
+                {"Are you sure you want to delete this?"}
+                </DialogTitle>
+                <DialogContent>
+                <DialogContentText id="alert-dialog-description">
+                    Please confirm Here
+                </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                <Button onClick={onCancel}>Cancel</Button>
+                <Button onClick={deleteUser} autoFocus>
+                    Agree
+                </Button>
+                </DialogActions>
+            </Dialog>
 
 
             <div className="searchPanel">
@@ -126,7 +171,7 @@ export default function OutletList() {
                     {/* <Link to={`/User/${outlet._id}`}><button class="table_btns">View</button></Link>&nbsp; */}
                     <Link to={`/section/outlet-order/${outlet._id}`}><button class="table_btns">Order</button></Link>&nbsp;
                     <Link to={`/section/update-outlet/${outlet._id}`}><button class="table_btns">Update</button></Link>&nbsp;
-                    <button class="table_btns" onClick={() => {deleteUser(outlet._id)}}>Delete</button>
+                    <button class="table_btns" onClick={() => {handleClickOpen(outlet._id)}}>Delete</button>
                     </center></td>
             </tr> 
         ))

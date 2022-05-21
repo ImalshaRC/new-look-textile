@@ -35,7 +35,7 @@ export default function OrderManagement() {
                 <th scope="col">Address</th> 
                 <th scope="col">Postal Code</th> 
                 <th scope="col">Method</th>              
-                <th scope="col">action</th>
+                {/* <th scope="col">action</th> */}
             </tr>
         </thead>
         <tbody>
@@ -51,9 +51,9 @@ export default function OrderManagement() {
                 <td><center>{order.sAddress}</center></td> 
                 <td><center>{order.pCode}</center></td> 
                 <td><center>{order.method}</center></td>          
-                <td scope="col"><center>
+                {/* <td scope="col"><center>
                     <Link to={`/section/deliver/${order._id}`}><button class="table_btns">Deliver</button></Link></center>
-                </td>
+                </td> */}
             </tr> 
         ))
     }

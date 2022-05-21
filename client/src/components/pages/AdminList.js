@@ -121,7 +121,7 @@ function HomeATest(){
         users.map((user, index) => (
             <tr>
                 <td scope="row">{index + 1}</td>
-                <td>{user.userID}</td>
+                <td className='table-font-size'>{user.userID}</td>
                 <td>{user.FirstName}</td>
                 <td>{user.LastName}</td>
                 <td>{user.AddressLine1}</td>

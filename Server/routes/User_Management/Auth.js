@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { User } = require("../../models/User_Management/User.js");
+const { Customer } = require("../../models/User_Management/Customer.js");
 const bcrypt = require("bcrypt");
 const Joi = require("joi");
 const crypto = require('crypto');
@@ -7,17 +7,17 @@ var nodemailer = require('nodemailer');
 
 router.route("/find").post( async (req, res) => {
 	try {
-		const user = await User.findOne({ email: req.body.email });
-		if (!user){
+		const customer = await Customer.findOne({ email: req.body.email });
+		if (!customer){
             return res.status(401).send({ message: "Invalid Email or Password" });
         }
-		else if(user.verify != true){
+		else if(customer.verify != true){
 			return res.status(401).send({ message: "Please check your email to verify." });
 		}
 		else{
 			const validPassword = await bcrypt.compare(
 				req.body.password,
-				user.password
+				customer.password
 			);
 			if (!validPassword){
 				return res.status(401).send({ message: "Invalid Email or Password" });
@@ -25,7 +25,7 @@ router.route("/find").post( async (req, res) => {
 			
     		const token = crypto.randomBytes(48).toString('hex');
 			// const token = user.generateAuthToken();
-			res.status(200).send({ data: user.designation, message: "logged in successfully" });
+			res.status(200).send({ data: customer.firstName, message: "logged in successfully" });
 		}	
 
 	} catch (error) {
@@ -46,7 +46,7 @@ router.route("/findname/:email").post( async (req, res) => {
 		
 		let Email = req.params.email;
 
-		const user = await User.findOne({ email: Email });			
+		const user = await Customer.findOne({ email: Email });			
 
 		res.status(200).send({ data: user.email, message: "logged in successfully" });
 	} catch (error) {
@@ -59,7 +59,7 @@ router.route("/verify/:token").post( async (req, res) => {
 		
 		let token = req.params.token;
 
-		await User.findOneAndUpdate(
+		await Customer.findOneAndUpdate(
 			{ token: token },
 			{ verify: true },
 			{}
@@ -82,12 +82,12 @@ router.route("/forgotemail/:email").post( async (req, res) => {
 
 		let email = req.params.email;
 
-		const user = await User.findOne({ email: email });
+		const user = await Customer.findOne({ email: email });
 		if (!user){
 			return res.status(409).send({ message: "Invalid Email. Please check your email again!" });
 		}else{
 
-			await User.findOneAndUpdate(
+			await Customer.findOneAndUpdate(
 				{ email: email },
 				{ password: hashPassword },
 				{}

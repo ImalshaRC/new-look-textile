@@ -162,7 +162,7 @@ export default function AddOutlet() {
                     <tr>
                         <td>
                             Password
-                            <input type="password" name="password" value={password} placeholder="Enter Your Color" onChange={ e => onInputChange(e)}/><br/>
+                            <input type="password" id="psw-input-field" name="password" value={password} placeholder="Enter Your Color" onChange={ e => onInputChange(e)}/><br/>
                         </td>
                     </tr>
                     <tr>
