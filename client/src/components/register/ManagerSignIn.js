@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignIn() {
+export default function ManagerSignIn() {
   const classes = useStyles();
 
   const cookies = new Cookies();
@@ -61,8 +61,7 @@ export default function SignIn() {
       e.preventDefault();
       if(checker){
           try{
-              await axios.post('http://localhost:5000/auth/find/', user).then((res) => {
-                // cookies.set("token", res.data.data);
+              await axios.post('http://localhost:5000/mAuth/find/', user).then((res) => {
                 cookies.set("designation", res.data.data);
                 window.location = ("/section");
               })
@@ -84,8 +83,8 @@ export default function SignIn() {
   }
 
 const getData = async () => {
-    await axios.post('http://localhost:5000/auth/findname/' + email).then((data) => {
-      cookies.set("_id", data.data.data);
+    await axios.post('http://localhost:5000/mAuth/findname/' + email).then((data) => {
+      cookies.set("name", data);
     })    
 }
 
@@ -126,7 +125,7 @@ const formValidation = () =>{
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Customer Sign in
+          Manager Sign in
         </Typography>
         <form onSubmit={ e => onSubmit(e)} className={classes.form} noValidate>
           <TextField variant="outlined" margin="normal" required fullWidth label="Email Address" name="email" value={email} onChange={ e => onInputChange(e)}
@@ -145,12 +144,12 @@ const formValidation = () =>{
           </Button>
           <Grid container>
             <Grid item xs>
-              <Link href="/manager-signin" variant="body2">
-                Manager SignIn
+              <Link href="#" variant="body2">
+                Forgot password?
               </Link>
             </Grid>
             <Grid item>
-              <Link href="/section/customer" variant="body2">
+              <Link href="/manager-signup" variant="body2">
                 {"Don't have an account? Sign Up"}
               </Link>
             </Grid>

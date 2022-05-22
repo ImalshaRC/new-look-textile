@@ -10,6 +10,14 @@ body{
   margin-right: 20px;
 }
 
+.text-up{
+  font-size: 15px;
+}
+
+.text-up-col{
+  font-size: 14px;
+}
+
 .include{
   background-color: #b9bdba;
   color: #000;

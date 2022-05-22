@@ -37,7 +37,7 @@ export default function AddOutlet() {
             }).catch((err) => {
                 alert(err);
             })
-            history.push("/outletlist");
+            history.push("/section/outletlist");
         }                      
     }
 

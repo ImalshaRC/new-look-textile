@@ -17,7 +17,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 
 function EmployeeList(){
 
-    //generate pdf
+//generate pdf-----------------------------
 
   let docToPrint = React.createRef();
 
@@ -28,14 +28,14 @@ function EmployeeList(){
       const pdf = new jsPDF({
         orientation: "landscape",
         unit: "px",
-        format: [600, 745]
+        format: [600, 900]
       });
       pdf.addImage(imgData, "JPEG", 0, 0);
       pdf.save("Attendance_2021-2-3.pdf");
     });
   };
 
-  //end generate pdf
+  //end generate pdf-----------------------------
 
     const [users, setUser] = useState([]);
     useEffect(() => {
@@ -169,6 +169,7 @@ function EmployeeList(){
             <i></i>
             <div className="tableContent">
 
+            {/* start of pdf div */}
             <div ref={docToPrint}>
 
             <table id="table">
@@ -219,6 +220,7 @@ function EmployeeList(){
   </tbody>
 </table>
 </div>
+{/* end of pdf div */}
 </div>
     {users.length === 0 && <span>no records found to display</span>}
         </div>

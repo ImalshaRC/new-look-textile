@@ -37,7 +37,7 @@ export default function AddProduct() {
             }).catch((err) => {
                 alert(err);
             })
-            history.push("/");  
+            history.push("/section/productlist");  
         }              
     }
 

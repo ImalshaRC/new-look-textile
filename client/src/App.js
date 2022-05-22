@@ -50,11 +50,16 @@ import DeliverSummary from "./components/pages/DeliverSummary";
 import EmployeeSummary from "./components/pages/EmployeeSummary";
 import CustomerSummary from "./components/pages/CustomerSummary";
 import AddDeliverTable from "./components/pages/AddDeliverTable";
+import ManagerSignUp from "./components/register/ManagerSignUp";
+import ManagerSignIn from "./components/register/ManagerSignIn";
+import ManagerVerify from "./components/register/ManagerVerify";
+import Footer from "./components/pages/Footer";
 // import AddProducts from "./core/AddProducts";
 
 function App() {
 
   const cookies = new Cookies();
+
 
   return (
     <Router>
@@ -64,60 +69,64 @@ function App() {
         <switch> 
           <Route exact path="/"><Redirect to="/signin"/></Route>
           <Route path="/signin" exact component={SignIn}/>
-          <Route path="/signup" exact component={SignUp}/>
+          <Route path="/manager-signin" exact component={ManagerSignIn}/>
+          <Route path="/manager-signup" exact component={ManagerSignUp}/>
           <Route path="/verify/:token" exact component={Verify}/>
+          <Route path="/manager-verify/:token" exact component={ManagerVerify}/>
           <Route path="/landedpage" exact component={LandedPage}/>
+
+          <Route path="/footer" exact component={Footer}/>
 
           <Route path="/section" component={MainHeader}/>
           <Route path="/errorpage" component={ErrorPage}/>
           
-          <Route path="/section/product" exact component={AddProduct}/>
-          <Route path="/section/productlist" exact component={ProductList}/>
-          <Route path="/section/productcategory" exact component={ProductCategory}/>
-          <Route path="/section/update-product/:id" exact component={UpdateProduct}/>          
-          <Route path="/section/product-summary" exact component={ProductSummary}></Route>
+          <Route path="/section/product" exact component={AddProduct}>{cookies.get('designation') != 'product' && <Redirect to="/section"/>}</Route>
+          <Route path="/section/productlist" exact component={ProductList}>{cookies.get('designation') != 'product' && <Redirect to="/section"/>}</Route>
+          <Route path="/section/productcategory" exact component={ProductCategory}></Route>
+          <Route path="/section/update-product/:id" exact component={UpdateProduct}>{cookies.get('designation') != 'product' && <Redirect to="/section"/>}</Route>        
+          <Route path="/section/product-summary" exact component={ProductSummary}>{cookies.get('designation') != 'product' && <Redirect to="/section"/>}</Route>
 
-          <Route path="/section/customer" exact component={Customer}></Route>
-          <Route path="/section/customerlist" exact component={CustomerList}/>
+          <Route path="/section/customer" exact component={Customer}>{cookies.get('designation') != 'customer' && <Redirect to="/section"/>}</Route>
+          <Route path="/section/customerlist" exact component={CustomerList}>{cookies.get('designation') != 'customer' && <Redirect to="/section"/>}</Route>
           <Route path="/section/customer-profile/:id" exact component={CustomerProfile}></Route>
           <Route path="/section/update-customer/:id" exact component={UpdateCustomer}></Route>
-          <Route path="/section/login" exact component={Login}></Route>
-          <Route path="/section/customer-summary" exact component={CustomerSummary}></Route>
+          {/* <Route path="/section/login" exact component={Login}>{cookies.get('designation') != 'customer' && <Redirect to="/section"/>}</Route> */}
+          <Route path="/section/customer-summary" exact component={CustomerSummary}>{cookies.get('designation') != 'customer' && <Redirect to="/section"/>}</Route>
 
-          <Route path="/section/driver" exact component={Driver}></Route>
-          <Route path="/section/deliver/:id" exact component={Deliver}></Route>
-          <Route path="/section/update-driver/:id" exact component={UpdateDriver}></Route>
-          <Route path="/section/driverlist" exact component={DriverList}></Route>
-          <Route path="/section/driver-profile/:id" exact component={DriverProfile}></Route>
-          <Route path="/section/deliverlist" exact component={DeliverList}></Route>
-          <Route path="/section/deliver-summary" exact component={DeliverSummary}></Route>
-          <Route path="/section/addDeliverTable" exact component={AddDeliverTable}></Route>
+          <Route path="/section/driver" exact component={Driver}>{cookies.get('designation') != 'driver' && <Redirect to="/section"/>}</Route>
+          <Route path="/section/deliver/:id" exact component={Deliver}>{cookies.get('designation') != 'driver' && <Redirect to="/section"/>}</Route>
+          <Route path="/section/update-driver/:id" exact component={UpdateDriver}>{cookies.get('designation') != 'driver' && <Redirect to="/section"/>}</Route>
+          <Route path="/section/driverlist" exact component={DriverList}>{cookies.get('designation') != 'driver' && <Redirect to="/section"/>}</Route>
+          <Route path="/section/driver-profile/:id" exact component={DriverProfile}>{cookies.get('designation') != 'driver' && <Redirect to="/section"/>}</Route>
+          <Route path="/section/deliverlist" exact component={DeliverList}>{cookies.get('designation') != 'driver' && <Redirect to="/section"/>}</Route>
+          <Route path="/section/deliver-summary" exact component={DeliverSummary}>{cookies.get('designation') != 'driver' && <Redirect to="/section"/>}</Route>
+          <Route path="/section/addDeliverTable" exact component={AddDeliverTable}>{cookies.get('designation') != 'driver' && <Redirect to="/section"/>}</Route>
 
-          <Route path="/section/outlet" exact component={AddOutlet}></Route>
-          <Route path="/section/outletlist" exact component={OutletList}></Route>
-          <Route path="/section/update-outlet/:id" exact component={UpdateOutlet}></Route>
-          <Route path="/section/outlet-order/:id" exact component={OutletOrder}></Route>
-          <Route path="/section/outletorderlist" exact component={OutletOrderList}></Route>
-          <Route path="/section/outlet-summary" exact component={OutletSummary}></Route>
+          <Route path="/section/outlet" exact component={AddOutlet}>{cookies.get('designation') != 'outlet' && <Redirect to="/section"/>}</Route>
+          <Route path="/section/outletlist" exact component={OutletList}>{cookies.get('designation') != 'outlet' && <Redirect to="/section"/>}</Route>
+          <Route path="/section/update-outlet/:id" exact component={UpdateOutlet}>{cookies.get('designation') != 'outlet' && <Redirect to="/section"/>}</Route>
+          <Route path="/section/outlet-order/:id" exact component={OutletOrder}>{cookies.get('designation') != 'outlet' && <Redirect to="/section"/>}</Route>
+          <Route path="/section/outletorderlist" exact component={OutletOrderList}>{cookies.get('designation') != 'outlet' && <Redirect to="/section"/>}</Route>
+          <Route path="/section/outlet-summary" exact component={OutletSummary}>{cookies.get('designation') != 'outlet' && <Redirect to="/section"/>}</Route>
 
-          <Route path="/section/machine" exact component={AddMachine}></Route>
-          <Route path="/section/machinelist" exact component={MachineList}></Route>
-          <Route path="/section/update-machine/:id" exact component={UpdateMachine}></Route>
-          <Route path="/section/machineCategory" exact component={MachineCategory}></Route>
-          <Route path="/section/machine-profile/:id" exact component={MachineProfile}></Route>
+          <Route path="/section/machine" exact component={AddMachine}>{cookies.get('designation') != 'machine' && <Redirect to="/section"/>}</Route>
+          <Route path="/section/machinelist" exact component={MachineList}>{cookies.get('designation') != 'machine' && <Redirect to="/section"/>}</Route>
+          <Route path="/section/update-machine/:id" exact component={UpdateMachine}>{cookies.get('designation') != 'machine' && <Redirect to="/section"/>}</Route>
+          <Route path="/section/machineCategory" exact component={MachineCategory}>{cookies.get('designation') != 'machine' && <Redirect to="/section"/>}</Route>
+          <Route path="/section/machine-profile/:id" exact component={MachineProfile}>{cookies.get('designation') != 'machine' && <Redirect to="/section"/>}</Route>
 
-          <Route path="/section/employeelist"  component={HomeTest}></Route>
-          <Route path="/section/user-add" exact component={AddUser}></Route>
-          <Route path="/section/test-edit/:id" exact component={EditUser}></Route>
-          <Route path="/section/User/:id" exact component={User}></Route>
-          <Route path="/section/attendance" exact component={TodayAttds}></Route>
-          <Route path="/section/attendance/:id" exact component={Attendance}></Route>
-          <Route path="/section/editattds/:id" exact component={EditAttds}></Route>
-          <Route path="/section/employee-summary" exact component={EmployeeSummary}></Route>
+          <Route path="/section/employeelist"  component={HomeTest}>{cookies.get('designation') != 'employee' && <Redirect to="/section"/>}</Route>
+          <Route path="/section/user-add" exact component={AddUser}>{cookies.get('designation') != 'employee' && <Redirect to="/section"/>}</Route>
+          <Route path="/section/test-edit/:id" exact component={EditUser}>{cookies.get('designation') != 'employee' && <Redirect to="/section"/>}</Route>
+          <Route path="/section/User/:id" exact component={User}>{cookies.get('designation') != 'employee' && <Redirect to="/section"/>}</Route>
+          <Route path="/section/attendance" exact component={TodayAttds}>{cookies.get('designation') != 'employee' && <Redirect to="/section"/>}</Route>
+          <Route path="/section/attendance/:id" exact component={Attendance}>{cookies.get('designation') != 'employee' && <Redirect to="/section"/>}</Route>
+          <Route path="/section/editattds/:id" exact component={EditAttds}>{cookies.get('designation') != 'employee' && <Redirect to="/section"/>}</Route>
+          <Route path="/section/employee-summary" exact component={EmployeeSummary}>{cookies.get('designation') != 'employee' && <Redirect to="/section"/>}</Route>
           
           <Route path="/section/myorder/:id" exact component={MyOrder}></Route>
           <Route path="/section/mycart" exact component={MyCart}></Route>
-          <Route path="/section/orderManagement" exact component={OrderManagement}></Route>
+          <Route path="/section/orderManagement" exact component={OrderManagement}>{cookies.get('designation') != 'order' && <Redirect to="/section"/>}</Route>
           <Route path="/section/updateorder/:id" exact component={UpdateOrder}></Route>
           <Route path="/section/payment/:id" exact component={Payment}></Route>
           <Route path="/section/summary/" exact component={Summary}></Route>

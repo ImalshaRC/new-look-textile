@@ -78,7 +78,11 @@ const customerData = new schema ({
     },
     verify: {
         type: Boolean,
+    },
+    designation: {
+        type: String,
     }
+
 
 }, {timestamps: true});
 

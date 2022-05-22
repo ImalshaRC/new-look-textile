@@ -10,6 +10,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import Footer from "./Footer";
 
 export default function CustomerList() {
 
@@ -19,7 +20,7 @@ export default function CustomerList() {
     }, []);
 
     const loadCustomer = async() => {
-        const result = await axios.get('http://localhost:5000/customer/');
+        const result = await axios.get('http://localhost:5000/user/get');
         setCustomers(result.data.reverse());
         console.log(result.data);
     }
@@ -133,28 +134,28 @@ export default function CustomerList() {
             <table id="table">
         <thead>
             <tr>
-                <th scope="col">Index</th>
-                <th scope="col">User Name</th>
-                <th scope="col">Birth Date</th>
-                <th scope="col">Phone</th>                
-                <th scope="col">Address</th>
-                <th scope="col">E-mail</th>
-                <th scope="col">action</th>
+                <th scope="col"><div className="text-up">Index</div></th>
+                <th scope="col"><div className="text-up">User Name</div></th>
+                <th scope="col"><div className="text-up">Birth Date</div></th>
+                <th scope="col"><div className="text-up">Phone</div></th>                
+                <th scope="col"><div className="text-up">Address</div></th>
+                <th scope="col"><div className="text-up">E-mail</div></th>
+                <th scope="col"><div className="text-up">action</div></th>
             </tr>
         </thead>
         <tbody>
     {customers.map((customer, index) => (
             <tr>
-                <center><td >{index + 1}</td></center>
-                <td><center>{customer.userName}</center></td>
-                <td><center>{customer.birthDate}</center></td> 
-                <td><center>{customer.phone}</center></td> 
-                <td><center>{customer.address}</center></td> 
-                <td><center>{customer.email}</center></td>          
+                <td><center><div className="text-up-col">{index + 1}</div></center></td>
+                <td><center><div className="text-up-col">{customer.userName}</div></center></td>
+                <td><center><div className="text-up-col">{customer.birthDate}</div></center></td> 
+                <td><center><div className="text-up-col">{customer.phone}</div></center></td> 
+                <td><center><div className="text-up-col">{customer.address}</div></center></td> 
+                <td><center><div className="text-up-col">{customer.email}</div></center></td>          
                 <td scope="col"><center>
-                    <Link to={`/section/customer-profile/${customer._id}`}><button class="table_btns">View</button></Link>&nbsp;
-                    <Link to={`/section/update-customer/${customer._id}`}><button class="table_btns">Update</button></Link>&nbsp;
-                    <button onClick={() => {handleClickOpen(customer._id)}} class="table_btns">Delete</button></center>
+                    <Link to={`/section/customer-profile/${customer._id}`}><button class="table_btns"><div className="text-up-col">View</div></button></Link>&nbsp;
+                    <Link to={`/section/update-customer/${customer._id}`}><button class="table_btns"><div className="text-up-col">Update</div></button></Link>&nbsp;
+                    <button onClick={() => {handleClickOpen(customer._id)}} class="table_btns"><div className="text-up-col">Delete</div></button></center>
                 </td>
             </tr> 
         ))
@@ -165,5 +166,6 @@ export default function CustomerList() {
 </div>
     {customers.length === 0 && <span>no records found to display</span>}
         </div>
+        
     )
 }

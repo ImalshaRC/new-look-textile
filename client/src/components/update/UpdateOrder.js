@@ -32,7 +32,7 @@ export default function UpdateOrder() {
             }).catch((err) => {
                 alert(err);
             })
-            history.push("/"); 
+            history.push("/section/mycart"); 
         }                  
     }
 

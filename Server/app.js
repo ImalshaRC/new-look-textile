@@ -28,6 +28,8 @@ const machineRouter = require("./routes/Machinary_management/Machine.js");
 const customerRouter = require("./routes/Customer_Mangement/Customer.js");
 const userRouter = require("./routes/User_Management/User.js");
 const authRouter = require("./routes/User_Management/Auth.js");
+const managerUserRouter = require("./routes/User_Management/ManagerUser");
+const managerAuthRouter = require("./routes/User_Management/ManagerAuth");
 
 
 app.get("/", (req, res) => {
@@ -48,6 +50,8 @@ app.use("/machine", machineRouter);
 app.use("/customer", customerRouter);
 app.use("/user", userRouter);
 app.use("/auth", authRouter);
+app.use("/mUser", managerUserRouter);
+app.use("/mAuth", managerAuthRouter);
 
 app.listen(PORT, () => {
     console.log(`Server is running on port number: ${PORT}`);

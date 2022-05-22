@@ -35,7 +35,7 @@ export default function Payment() {
             }).catch((err) => {
                 alert(err);
             })   
-            history.push(`/summary?fullName=`+fullName+`&phone=`+phone+`&email=`+email+`&country=`+country+`&city=`+city+`&sAddress=`+sAddress+`&pCode=`+pCode+`&method=`+method+`&orderID=`+id);
+            history.push(`/section/summary?fullName=`+fullName+`&phone=`+phone+`&email=`+email+`&country=`+country+`&city=`+city+`&sAddress=`+sAddress+`&pCode=`+pCode+`&method=`+method+`&orderID=`+id);
         }               
     }
 

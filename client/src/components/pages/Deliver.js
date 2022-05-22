@@ -73,12 +73,15 @@ export default function Deliver() {
                 + driverID + '/'  
                 + deliveryTime + '/'  
                 + driverPhone     
-            ).then(() => {
+            ).then(async () => {
                 alert("Deliver added successfully");
+
+                    await axios.delete("http://localhost:5000/payment/delete/" + id);               
+
             }).catch((err) => {
                 alert(err);
             })
-            history.push("/");
+            history.push("/section/addDeliverTable");
         }          
     }
 

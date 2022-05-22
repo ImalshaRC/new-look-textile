@@ -29,7 +29,13 @@ import SettingsIcon from '@material-ui/icons/Settings';
     const goToLogOut = () => {
 
         cookies.remove("designation", {path: "/"});
+        cookies.remove("_id", {path: "/"});
         history.push("/signin");        
+    }
+
+    const goToProfile = () => {
+        handleClose();
+        history.push("/section/customer-profile/" + cookies.get("_id"));      
     }
    
     return(
@@ -40,8 +46,8 @@ import SettingsIcon from '@material-ui/icons/Settings';
                     <SettingsIcon/>
                 </Button>
                 <Menu id="fade-menu" anchorEl={anchorEl} keepMounted open={open} onClose={handleClose} TransitionComponent={Fade}>
-                    <MenuItem onClick={handleClose}>Profile</MenuItem>
-                    <MenuItem onClick={handleClose}>My account</MenuItem>
+                    <MenuItem onClick={goToProfile}>Profile</MenuItem>
+                    {/* <MenuItem onClick={handleClose}>My account</MenuItem> */}
                     <MenuItem onClick={handleClose}>
                         <button onClick={goToLogOut} className='bg-transparent'>Log Out</button>
                     </MenuItem>
@@ -51,8 +57,8 @@ import SettingsIcon from '@material-ui/icons/Settings';
             <div class = "line1"><h4><i><b>NEW LOOK TEXTILE FACTORY</b></i></h4></div>
         
             <hr class = "hr1"></hr>    
-            <h2 class="line2">Welcome to a </h2>
-            <p class="line3"><b>Colorful Life</b></p>
+            {/* <h2 class="line2">Welcome to a </h2>
+            <p class="line3"><b>Colorful Life</b></p> */}
 
             <div align="right">
                 <Link to="/signin"><button name ="Login" class ="btn1">Login</button></Link>

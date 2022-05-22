@@ -1,5 +1,5 @@
 const router = require("express").Router();
-let {Customer, validate} = require("../../models/User_Management/Customer");
+let {Manager, validate} = require("../../models/User_Management/Manager");
 const bcrypt = require("bcrypt");
 const dotenv = require("dotenv");
 require("dotenv").config();
@@ -18,7 +18,7 @@ router.route("/add").post(async (req, res) => {
 
     const token = crypto.randomBytes(48).toString('hex');
 
-    const link = `http://localhost:3000/verify/${token}`;
+    const link = `http://localhost:3000/manager-verify/${token}`;
     
     var mailOptions = {
         from: 'realasia@gmail.com',
@@ -30,12 +30,12 @@ router.route("/add").post(async (req, res) => {
 
 	try {		
         const { error } = validate(req.body.user);
-        const user = await Customer.findOne({ email: req.body.email });
+        const manager = await Manager.findOne({ email: req.body.email });
 
         if (error){
             return res.status(400).send({ message: error.details[0].message });
         }  
-        else if (user){
+        else if (manager){
             return res.status(409).send({ message: "User with given email already Exist!" });
         }
         else{
@@ -49,8 +49,8 @@ router.route("/add").post(async (req, res) => {
                     const salt = await bcrypt.genSalt(Number(process.env.SALT));
                     const hashPassword = await bcrypt.hash(req.body.password, salt);
 
-                    await new Customer({ ...req.body, password: hashPassword, verify: false, token: token, designation: "user" }).save();
-                    res.status(201).send({ message: "User created successfully" });
+                    await new Manager({ ...req.body, password: hashPassword, verify: false, token: token }).save();
+                    res.status(201).send({ message: "Manager Added successfully" });
                 }
             });
         }
@@ -61,7 +61,7 @@ router.route("/add").post(async (req, res) => {
 });
 
 router.route("/get").get((req, res) => {
-    Customer.find().then((user) => {
+    Manager.find().then((user) => {
         res.json(user);
     }).catch((err) => {
         console.log(err);
@@ -75,7 +75,7 @@ router.route("/find_id/:email").get(async (req, res) => {
         email: Email
     }
 
-    await Customer.find(query).then((user) => {
+    await Manager.find(query).then((user) => {
         res.json(user);
     }).catch((err) => {
         console.log(err.message);
@@ -85,8 +85,13 @@ router.route("/find_id/:email").get(async (req, res) => {
 
 router.route("/update/:id").put(async (req, res) => {
     let userID = req.params.id;
+    const {firstName, surname, email, designation, password} = req.body;
 
-    const update = await Customer.findByIdAndUpdate(userID, req.body).then(() => {
+    const user = {
+        firstName, surname, email, designation, password
+        }
+
+    const update = await Manager.findByIdAndUpdate(userID, user).then(() => {
 
         res.status(200).send({status: "data updated"});
     }).catch((err) => {
@@ -98,23 +103,12 @@ router.route("/update/:id").put(async (req, res) => {
 router.route("/delete/:id").delete(async (req, res) => {
     let userID = req.params.id;
 
-    await Customer.findByIdAndDelete(userID).then(() => {
+    await Manager.findByIdAndDelete(userID).then(() => {
 
         res.status(200).send({status: "data deleted"});
     }).catch((err) => {
         console.log(err.message);
         res.status(500).send({status: "error with delete data", error: err.message});
-    })
-})
-
-router.route("/get/:id").get(async (req, res) => {
-    let cusID = req.params.id;
-
-    await Customer.findById(cusID).then((cus) => {
-        res.json(cus);
-    }).catch((err) => {
-        console.log(err.message);
-        res.status(500).send({status: "error with fetched user", error: error.message});
     })
 })
 

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import axios from 'axios';
-import { useHistory, useParams } from 'react-router-dom';
+import { Link, useHistory, useParams } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -32,7 +32,7 @@ export default function CustomerProfile() {
       }, []);
   
     const loadCustomer = async () => {
-        const result = await axios.get("http://localhost:5000/customer/get/" + id);
+        const result = await axios.get("http://localhost:5000/user/get/" + id);
         setCustomer(result.data);
     }
 
@@ -110,7 +110,17 @@ export default function CustomerProfile() {
                         </td>
                     </tr>
                     
-                </table><br/><br/>
+                </table><br/>
+
+                <center>
+                    <table>
+                        <tr>
+                            <td>
+                                <Link to={`/section/update-customer/${id}`}><button type = "submit" class="button">Go To Update</button></Link>
+                            </td>
+                        </tr>
+                    </table>
+                </center> 
             </form>
         </div>
     );

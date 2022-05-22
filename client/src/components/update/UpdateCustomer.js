@@ -32,7 +32,7 @@ export default function UpdateCustomer() {
       }, []);
   
     const loadCustomer = async () => {
-        const result = await axios.get("http://localhost:5000/customer/get/" + id);
+        const result = await axios.get("http://localhost:5000/user/get/" + id);
         setCustomer(result.data);
     }
 
@@ -40,12 +40,12 @@ export default function UpdateCustomer() {
         e.preventDefault();
         const valid = formValidation();
         if(valid){
-            await axios.put('http://localhost:5000/customer/update/' + id, customer).then(() => {
+            await axios.put('http://localhost:5000/user/update/' + id, customer).then(() => {
                 alert("customer updated successfully");
             }).catch((err) => {
                 alert(err);
             })    
-            history.push("/section/customerlist");
+            history.push("/section/customer-profile/" + id);
         }                  
     }
 
@@ -171,12 +171,6 @@ export default function UpdateCustomer() {
                                 <option value="Male">Male</option>
                                 <option value="Female">Female</option>
                             </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Password
-                            <input type="password" name="password" value={password} placeholder="Enter Your Password" onChange={ e => onInputChange(e)}/>
                         </td>
                     </tr>
                     

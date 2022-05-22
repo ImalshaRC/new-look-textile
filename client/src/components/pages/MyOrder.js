@@ -59,7 +59,7 @@ export default function MyOrder() {
             }).catch((err) => {
                 alert(err);
             })        
-            history.push("/mycart");     
+            history.push("/section/mycart");     
         }     
     }
 

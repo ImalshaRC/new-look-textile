@@ -42,6 +42,18 @@ router.route("/get/:id").get(async (req, res) => {
         console.log(err.message);
         res.status(500).send({status: "error with fetched user", error: error.message});
     })
-})
+});
+
+router.route("/delete/:id").delete(async (req, res) => {
+    let payID = req.params.id;
+
+    await payment.findByIdAndDelete(payID).then(() => {
+            res.status(200).send({ status: "payment deleted" });
+        })
+        .catch((err) => {
+            console.log(err.message);
+            res.status(500).send({ status: "Error with delete payment", error: err.message });
+        });
+});
 
 module.exports = router;
