@@ -21,8 +21,8 @@ router.route("/add").post(async (req, res) => {
     const link = `http://localhost:3000/verify/${token}`;
     
     var mailOptions = {
-        from: 'realasia@gmail.com',
-        to: 'chaminduimalsha@gmail.com',
+        from: 'newlooktextile001@gmail.com',
+        to: req.body.email,
         subject: 'Welcome to RealAsia! You successfully created account.',
         text: 'That was easy!',
         html: `<p><em>To veirfy your account please click <a href="${link}" target="_blank" rel="noopener">Here</a>.</em></p>`

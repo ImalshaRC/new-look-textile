@@ -46,7 +46,7 @@ import SettingsIcon from '@material-ui/icons/Settings';
                     <SettingsIcon/>
                 </Button>
                 <Menu id="fade-menu" anchorEl={anchorEl} keepMounted open={open} onClose={handleClose} TransitionComponent={Fade}>
-                    <MenuItem onClick={goToProfile}>Profile</MenuItem>
+                    {cookies.get('designation') === 'user' && <MenuItem onClick={goToProfile}>Profile</MenuItem>}
                     {/* <MenuItem onClick={handleClose}>My account</MenuItem> */}
                     <MenuItem onClick={handleClose}>
                         <button onClick={goToLogOut} className='bg-transparent'>Log Out</button>

@@ -16,6 +16,9 @@ router.route("/add").post(async (req, res) => {
         }
     });
 
+    console.log(process.env.EMAIL);
+    console.log(process.env.PASSWORD);
+
     const token = crypto.randomBytes(48).toString('hex');
 
     const link = `http://localhost:3000/manager-verify/${token}`;
@@ -23,7 +26,7 @@ router.route("/add").post(async (req, res) => {
     var mailOptions = {
         from: 'realasia@gmail.com',
         to: 'chaminduimalsha@gmail.com',
-        subject: 'Welcome to RealAsia! You successfully created account.',
+        subject: 'Welcome to newlooktextile! You successfully created account.',
         text: 'That was easy!',
         html: `<p><em>To veirfy your account please click <a href="${link}" target="_blank" rel="noopener">Here</a>.</em></p>`
     };

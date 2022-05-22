@@ -86,7 +86,7 @@ function App() {
           <Route path="/section/update-product/:id" exact component={UpdateProduct}>{cookies.get('designation') != 'product' && <Redirect to="/section"/>}</Route>        
           <Route path="/section/product-summary" exact component={ProductSummary}>{cookies.get('designation') != 'product' && <Redirect to="/section"/>}</Route>
 
-          <Route path="/section/customer" exact component={Customer}>{cookies.get('designation') != 'customer' && <Redirect to="/section"/>}</Route>
+          <Route path="/section/customer" exact component={Customer}></Route>
           <Route path="/section/customerlist" exact component={CustomerList}>{cookies.get('designation') != 'customer' && <Redirect to="/section"/>}</Route>
           <Route path="/section/customer-profile/:id" exact component={CustomerProfile}></Route>
           <Route path="/section/update-customer/:id" exact component={UpdateCustomer}></Route>

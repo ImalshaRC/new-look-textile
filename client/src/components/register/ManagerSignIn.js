@@ -84,7 +84,7 @@ export default function ManagerSignIn() {
 
 const getData = async () => {
     await axios.post('http://localhost:5000/mAuth/findname/' + email).then((data) => {
-      cookies.set("name", data);
+      // cookies.set("name", data);
     })    
 }
 
